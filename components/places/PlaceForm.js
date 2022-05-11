@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { Colors } from "../../constants/Colors";
+import ImagePickerCam from "./ImagePickerCam";
 
 function PlaceForm() {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -28,6 +29,7 @@ function PlaceForm() {
           value={enteredTitle}
         />
       </View>
+      <ImagePickerCam />   
     </ScrollView>
   );
 }
@@ -48,10 +50,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     paddingVertical: 8,
     fontSize: 18,
-    color: Colors.primary900,
-    borderBottomColor: Colors.vermelhoA,
+    color: Colors.gray900,
     borderBottomWidth: 4,
-    backgroundColor: Colors.gray50,
+    backgroundColor: Colors.gray300,
+    borderRadius: 10,
   },
 });
 

@@ -16,7 +16,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: Colors.vermelhoA,
+            backgroundColor: Colors.primary700,
           },
           headerTintColor: Colors.gray50,
           contentStyle: { backgroundColor: Colors.gray900, tintColor: Colors.primary50 },
