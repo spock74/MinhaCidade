@@ -1,4 +1,4 @@
-export const Colors = {
+export const Colors_ = {
     primary00: "#fff",
   primary50: "#cfeffd",
   primary100: "#a0defb",
@@ -29,7 +29,18 @@ export const Colors = {
   gray900: "#212121",
 };
 
-export const ColorsRed = {
+export const Colors = {
+  gray50: "#fafafa",
+  gray100: "#f5f5f5",
+  gray200: "#eeeeee",
+  gray300: "#e0e0e0",
+  gray400: "#bdbdbd",
+  gray500: "#9e9e9e",
+  gray600: "#757575",
+  gray700: "#616161",
+  gray750: "#4d4d4d",
+  gray800: "#424242",
+  gray900: "#212121",
   primary50: "#FFEBEE",
   primary100: "#FFCDD2",
   primary200: "#EF9A9A",
@@ -46,7 +57,7 @@ export const ColorsRed = {
   accent700: "#D50000",
 };
 
-export const ColorsBlue = {
+export const Colors__ = {
   primary50: "#E8EAF6",
   primary100: "#C5CAE9",
   primary200: "#9FA8DA",

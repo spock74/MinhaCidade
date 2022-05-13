@@ -20,6 +20,7 @@ function PlacesList({ places }) {
   );
 }
 
+
 const styles = StyleSheet.create({
   fallbackContainer: {
     flex: 1,
@@ -32,5 +33,6 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-
 export default PlacesList;
+
+
