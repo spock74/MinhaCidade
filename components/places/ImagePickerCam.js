@@ -10,7 +10,7 @@ function ImagePickerCam() {
   async function takeImageHandler() {
     const image = await launchCameraAsync({
       allawEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
     console.log(image);
@@ -39,7 +39,7 @@ function ImagePickerCam() {
 const styles = StyleSheet.create({
   imagePrev: {
     width: "100%",
-    height: 250,
+    height: 270,
     marginVertical: 0,
     justifyContent: "center",
     alignItems: "center",
@@ -51,11 +51,10 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 10,
   },
-  text:{
-      fontSize: 18,
-      fontWeight: 'bold'
+  text: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
-
 });
 
 export default ImagePickerCam;

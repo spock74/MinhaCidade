@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
 import { Image, Alert, View, StyleSheet, Text } from "react-native";
+import {useState} from "react";
+import { useNavigation } from "@react-navigation/native";
 import OutLinedButton from "./OutLinedButton";
 import { Colors } from "../../constants/Colors";
 import {
@@ -8,10 +9,12 @@ import {
   PermissionStatus,
 } from "expo-location";
 import MapView from "react-native-maps";
-import { getMapPreview } from "../../getMapPreview";
+import { getMapPreview } from "../../geoloc/getMapPreview";
 
 function LocationPicker() {
   const [pickedLocation, setPickedLocation] = useState("");
+
+  const navigation = useNavigation();
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -51,21 +54,27 @@ function LocationPicker() {
     const location = await getCurrentPositionAsync();
     console.log("picked location", location);
     setPickedLocation({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
+      lat: location.coords.latitude,
+      lon: location.coords.longitude,
     });
   }
 
-  function pickOnMapHandler() {}
+  function pickOnMapHandler() {
+    navigation.navigate("FullMap", {loc: pickedLocation});
+  }
 
   let locationPreview = <Text>Aguardando Mapa...</Text>;
 
   if (pickedLocation) {
     locationPreview = (
       <Image
-        style = {styles.map}
-        source = {{
-          uri: getMapPreview(pickedLocation.latitude, pickedLocation.longitude),
+        style={styles.map}
+        source={{
+          uri: getMapPreview(
+            pickedLocation.latitude,
+            pickedLocation.longitude,
+            19
+          ),
         }}
       />
     );
@@ -73,9 +82,7 @@ function LocationPicker() {
 
   return (
     <View>
-      <View style={styles.mapPreview}>
-        {locationPreview}
-      </View>
+      <View style={styles.mapPreview}>{locationPreview}</View>
       <View style={styles.buttons}>
         <OutLinedButton
           style={styles.button}
@@ -116,6 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: 200,
+    borderRadius: 10,
   },
   buttons: {
     width: "100%",
