@@ -13,8 +13,8 @@ function FullMap({ route, navigation }) {
 
   console.log("locccc pickedLocation", pickedLocation);
 
-  const INITIAL_LATITUDE_DELTA = GEO_CONFIG.INITIAL_LATITUDE_DELTA;
-  const INITIAL_LONGITUDE_DELTA = GEO_CONFIG.INITIAL_LONGITUDE_DELTA;
+  const INITIAL_LATITUDE_DELTA = GEO_CONFIG.INITIAL_LATITUDE_DELTA / 5;
+  const INITIAL_LONGITUDE_DELTA = GEO_CONFIG.INITIAL_LONGITUDE_DELTA / 5;
 
   const initialPosition = {
     latitude: pickedLocation.lat,
@@ -23,6 +23,7 @@ function FullMap({ route, navigation }) {
     longitudeDelta: INITIAL_LONGITUDE_DELTA,
   };
 
+  
   function selectionLocationHandler(event) {
     console.log("event", event);
     const lat = event.nativeEvent.coordinate.latitude;

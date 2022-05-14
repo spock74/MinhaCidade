@@ -1,6 +1,10 @@
 import { Image, Alert, View, StyleSheet, Text } from "react-native";
-import {useState} from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import {
+  useNavigation,
+  useIsFocused,
+  useRoute,
+} from "@react-navigation/native";
 import OutLinedButton from "./OutLinedButton";
 import { Colors } from "../../constants/Colors";
 import {
@@ -8,13 +12,24 @@ import {
   useForegroundPermissions,
   PermissionStatus,
 } from "expo-location";
-import MapView from "react-native-maps";
 import { getMapPreview } from "../../geoloc/getMapPreview";
 
 function LocationPicker() {
   const [pickedLocation, setPickedLocation] = useState("");
-
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
+  const route = useRoute();
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        lat: route.params.pickedLocation.lat,
+        lon: route.params.pickedLocation.lon,
+      };
+      setPickedLocation(mapPickedLocation);
+    }
+
+  }, [route, isFocused]);
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -60,7 +75,7 @@ function LocationPicker() {
   }
 
   function pickOnMapHandler() {
-    navigation.navigate("FullMap", {loc: pickedLocation});
+    navigation.navigate("FullMap", { loc: pickedLocation });
   }
 
   let locationPreview = <Text>Aguardando Mapa...</Text>;
@@ -70,11 +85,7 @@ function LocationPicker() {
       <Image
         style={styles.map}
         source={{
-          uri: getMapPreview(
-            pickedLocation.latitude,
-            pickedLocation.longitude,
-            19
-          ),
+          uri: getMapPreview(pickedLocation.lat, pickedLocation.lon, 19),
         }}
       />
     );
