@@ -12,9 +12,9 @@ import {
   useForegroundPermissions,
   PermissionStatus,
 } from "expo-location";
-import { getMapPreview } from "../../geoloc/getMapPreview";
+import { getMapPreview, getAdress } from "../../geoloc/getMapPreview";
 
-function LocationPicker({onPress}) {
+function LocationPicker({ onPress, onPickedLocation }) {
   const [pickedLocation, setPickedLocation] = useState("");
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -28,8 +28,18 @@ function LocationPicker({onPress}) {
       };
       setPickedLocation(mapPickedLocation);
     }
-
   }, [route, isFocused]);
+
+  useEffect(() => {
+    let adress = "";
+    async function handleLocation() {
+      if (pickedLocation) {
+        adress = await getAdress(pickedLocation.lat, pickedLocation.lon);
+        onPickedLocation({...pickedLocation, endereco: adress});
+      }
+    }
+    handleLocation();
+  }, [onPickedLocation, onPickedLocation]);
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -76,10 +86,9 @@ function LocationPicker({onPress}) {
     navigation.navigate("FullMap", { loc: pickedLocation });
   }
 
-
-function savePlacceHandler() {
- // onPress(pickedLocation);
-}
+  function savePlacceHandler() {
+    // onPress(pickedLocation);
+  }
 
   let locationPreview = <Text>Aguardando Mapa...</Text>;
 
@@ -104,27 +113,21 @@ function savePlacceHandler() {
           color={Colors.primary400}
           size={28}
           onPress={getLocationHandler}
-        >
-          
-        </OutLinedButton>
+        ></OutLinedButton>
         <OutLinedButton
           style={styles.button}
           icon="map"
           color={Colors.primary400}
           size={28}
           onPress={pickOnMapHandler}
-        >
-         
-        </OutLinedButton>
+        ></OutLinedButton>
         <OutLinedButton
           style={styles.button}
           icon="cog"
           color={Colors.primary400}
           size={28}
           onPress={onPress}
-        >
-          
-        </OutLinedButton>        
+        ></OutLinedButton>
       </View>
     </View>
   );

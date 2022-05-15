@@ -4,7 +4,10 @@ import { useState } from "react";
 import OutLinedButton from "./OutLinedButton";
 import { Colors } from "../../constants/Colors";
 
-function ImagePickerCam() {
+
+
+//
+function ImagePickerCam({onTakenImage}) {
   const [image, setImage] = useState(null);
 
   async function takeImageHandler() {
@@ -15,6 +18,7 @@ function ImagePickerCam() {
     });
     console.log(image);
     setImage(image);
+    onTakenImage(image);
   }
 
   let imagePreview = <Text style={styles.text}>Nenhuma Imagem Ainda</Text>;
@@ -52,8 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   text: {
-    fontSize: 18,
-    fontWeight: "bold",
+    
   },
 });
 

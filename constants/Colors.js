@@ -1,5 +1,5 @@
-export const Colors_ = {
-    primary00: "#fff",
+export const Colors_x = {
+  primary00: "#fff",
   primary50: "#cfeffd",
   primary100: "#a0defb",
   primary200: "#77cff8",
@@ -29,7 +29,7 @@ export const Colors_ = {
   gray900: "#212121",
 };
 
-export const Colors = {
+export const Colors_ = {
   gray50: "#fafafa",
   gray100: "#f5f5f5",
   gray200: "#eeeeee",
@@ -56,8 +56,19 @@ export const Colors = {
   accent400: "#FF1744",
   accent700: "#D50000",
 };
-
-export const Colors__ = {
+ 
+export const Colors = {
+  gray50: "#fafafa",
+  gray100: "#f5f5f5",
+  gray200: "#eeeeee",
+  gray300: "#e0e0e0",
+  gray400: "#bdbdbd",
+  gray500: "#9e9e9e",
+  gray600: "#757575",
+  gray700: "#616161",
+  gray750: "#4d4d4d",
+  gray800: "#424242",
+  gray900: "#212121",
   primary50: "#E8EAF6",
   primary100: "#C5CAE9",
   primary200: "#9FA8DA",
@@ -73,3 +84,4 @@ export const Colors__ = {
   accent400: "#3D5AFE",
   accent700: "#304FFE",
 };
+

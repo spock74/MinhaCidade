@@ -6,33 +6,45 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Colors } from "../../constants/Colors";
 import ImagePickerCam from "./ImagePickerCam";
 import LocationPicker from "./LocationPicker";
 import Button  from "./UI/Button";
 
 function PlaceForm() {
-  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredDescription, setEnteredDescription] = useState("");
+  const [pickedLocation, setPickedLocation] = useState({});
+  const [takenImage, setTakenImage] = useState({});
 
-  function changeTitletHandler(enteredText) {
-    setEnteredTitle(enteredText);
+  function changeDescriptiontHandler(enteredText) {
+    setEnteredDescription(enteredText);
   }
 
+  function onTakenImageHandler (image) { 
+    setTakenImage(image);
+  }
+     
+  const onPickedLocationHandler = useCallback( (pickedLocation)  => {
+    setPickedLocation(pickedLocation);
+  }, []);
+
   function savePlaceHandler(){
-    console.log("f");
-  }  
- 
+    console.log("descr", enteredDescription);
+    console.log("location", pickedLocation);
+    console.log("imagem", takenImage);
+  }    
+  
   return (
     <ScrollView style={styles.form}>
-      <ImagePickerCam />   
-      <LocationPicker />
+      <ImagePickerCam onTakenImage={onTakenImageHandler}/>   
+      <LocationPicker onPickedLocation={onPickedLocationHandler}/>
       <View>
         <Text style={styles.label}>Descrição</Text>
         <TextInput
           style={styles.input}
-          onChangeText={changeTitletHandler}
-          value={enteredTitle}
+          onChangeText={changeDescriptiontHandler}
+          value={enteredDescription}
         />
       </View>
       <Button onPress={savePlaceHandler}>Salvar</Button>
