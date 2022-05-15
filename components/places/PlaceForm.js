@@ -27,15 +27,15 @@ function PlaceForm() {
     <ScrollView style={styles.form}>
       <ImagePickerCam />   
       <LocationPicker />
-      <Button onPress={savePlaceHandler}>Salvar</Button>
       <View>
-        <Text style={styles.label}>Nome</Text>
+        <Text style={styles.label}>Descrição</Text>
         <TextInput
           style={styles.input}
           onChangeText={changeTitletHandler}
           value={enteredTitle}
         />
       </View>
+      <Button onPress={savePlaceHandler}>Salvar</Button>
     </ScrollView>
   );
 }
@@ -48,12 +48,13 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     marginBottom: 0,
-    marginTop: 12,
+    marginTop: 0,
     fontSize: 18,
+    marginBottom: 4,
     color: Colors.primary50,
   },
   input: {
-    marginVertical: 4,
+    marginVertical: 0,
     paddingHorizontal: 2,
     paddingVertical: 8,
     fontSize: 18,
@@ -62,10 +63,12 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.primary800,
     backgroundColor: Colors.gray400,
     borderRadius: 10,
+    marginBottom:18,
   },
   butonSave:{
     borderRadius: 10,
     opacity: 1,
+    marginTop: 12,
   },
 });
 
