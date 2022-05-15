@@ -22,7 +22,7 @@ function FullMap({ route, navigation }) {
     latitudeDelta: INITIAL_LATITUDE_DELTA,
     longitudeDelta: INITIAL_LONGITUDE_DELTA,
   };
-
+ 
   
   function selectionLocationHandler(event) {
     console.log("event", event);
@@ -33,7 +33,7 @@ function FullMap({ route, navigation }) {
       lon: lon,
     });
   }
-
+    
   const savePickLocationHandler = useCallback(() => {
     if (!pickedLocation) {
       Alert.alert(

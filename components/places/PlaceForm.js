@@ -10,12 +10,18 @@ import { useState } from "react";
 import { Colors } from "../../constants/Colors";
 import ImagePickerCam from "./ImagePickerCam";
 import LocationPicker from "./LocationPicker";
+import Button  from "./UI/Button";
+
 
 function PlaceForm() {
   const [enteredTitle, setEnteredTitle] = useState("");
 
   function changeTitletHandler(enteredText) {
     setEnteredTitle(enteredTitle);
+  }
+
+  function f(){
+    console.log("f");
   }
 
   return (
@@ -30,6 +36,7 @@ function PlaceForm() {
       </View>
       <ImagePickerCam />   
       <LocationPicker />
+      <Button children="ola" onPress={() => {f}}>Adicionar Local</Button>
     </ScrollView>
   );
 }
@@ -38,6 +45,7 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
     padding: 24,
+    paddingBottom: 100,
   }, 
   label: {
     fontWeight: "bold",
