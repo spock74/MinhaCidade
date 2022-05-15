@@ -12,20 +12,22 @@ import ImagePickerCam from "./ImagePickerCam";
 import LocationPicker from "./LocationPicker";
 import Button  from "./UI/Button";
 
-
 function PlaceForm() {
   const [enteredTitle, setEnteredTitle] = useState("");
 
   function changeTitletHandler(enteredText) {
-    setEnteredTitle(enteredTitle);
+    setEnteredTitle(enteredText);
   }
 
-  function f(){
+  function savePlaceHandler(){
     console.log("f");
-  }
-
+  }  
+ 
   return (
     <ScrollView style={styles.form}>
+      <ImagePickerCam />   
+      <LocationPicker />
+      <Button onPress={savePlaceHandler}>Salvar</Button>
       <View>
         <Text style={styles.label}>Nome</Text>
         <TextInput
@@ -34,34 +36,36 @@ function PlaceForm() {
           value={enteredTitle}
         />
       </View>
-      <ImagePickerCam />   
-      <LocationPicker />
-      <Button children="ola" onPress={() => {f}}>Adicionar Local</Button>
     </ScrollView>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   form: {
     flex: 1,
-    padding: 24,
-    paddingBottom: 100,
+    padding: 12,
   }, 
   label: {
     fontWeight: "bold",
-    marginBottom: 4,
+    marginBottom: 0,
+    marginTop: 12,
     fontSize: 18,
     color: Colors.primary50,
   },
   input: {
-    marginVertical: 8,
+    marginVertical: 4,
     paddingHorizontal: 2,
     paddingVertical: 8,
     fontSize: 18,
     color: Colors.gray900,
     borderBottomWidth: 4,
-    backgroundColor: Colors.gray300,
+    borderBottomColor: Colors.primary800,
+    backgroundColor: Colors.gray400,
     borderRadius: 10,
+  },
+  butonSave:{
+    borderRadius: 10,
+    opacity: 1,
   },
 });
 

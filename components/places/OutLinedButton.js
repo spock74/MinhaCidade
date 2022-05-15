@@ -17,6 +17,7 @@ function OutLinedButton({ icon, color, children, size, onPress }) {
 const styles = StyleSheet.create({
   button: {
     height: 50,
+    
     opacity: 1,
     paddingHorizontal: 3,
     paddingVertical: 6,

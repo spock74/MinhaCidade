@@ -14,7 +14,7 @@ import {
 } from "expo-location";
 import { getMapPreview } from "../../geoloc/getMapPreview";
 
-function LocationPicker() {
+function LocationPicker({onPress}) {
   const [pickedLocation, setPickedLocation] = useState("");
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -61,13 +61,11 @@ function LocationPicker() {
   }
 
   async function getLocationHandler() {
-    console.log("========== getLocationHandler ==========");
     const hasPermission = await veryPermissions();
     if (!hasPermission) {
       return;
     }
     const location = await getCurrentPositionAsync();
-    console.log("picked location", location);
     setPickedLocation({
       lat: location.coords.latitude,
       lon: location.coords.longitude,
@@ -77,6 +75,11 @@ function LocationPicker() {
   function pickOnMapHandler() {
     navigation.navigate("FullMap", { loc: pickedLocation });
   }
+
+
+function savePlacceHandler() {
+ // onPress(pickedLocation);
+}
 
   let locationPreview = <Text>Aguardando Mapa...</Text>;
 
@@ -102,7 +105,7 @@ function LocationPicker() {
           size={28}
           onPress={getLocationHandler}
         >
-          Localizar
+          
         </OutLinedButton>
         <OutLinedButton
           style={styles.button}
@@ -111,8 +114,17 @@ function LocationPicker() {
           size={28}
           onPress={pickOnMapHandler}
         >
-          Escolher no Mapa
+         
         </OutLinedButton>
+        <OutLinedButton
+          style={styles.button}
+          icon="cog"
+          color={Colors.primary400}
+          size={28}
+          onPress={onPress}
+        >
+          
+        </OutLinedButton>        
       </View>
     </View>
   );
@@ -122,7 +134,7 @@ const styles = StyleSheet.create({
   mapPreview: {
     flex: 1,
     width: "100%",
-    height: 200,
+    height: 150,
     marginVertical: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -133,7 +145,7 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     width: "100%",
-    height: 200,
+    height: 100,
     borderRadius: 10,
   },
   buttons: {
@@ -145,7 +157,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   button: {
-    width: "50%",
+    flex: 1,
+    width: 100,
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",

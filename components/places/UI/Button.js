@@ -2,7 +2,7 @@ import { Text, Pressable, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../../constants/Colors";
 
-function Button({onPress, children}) {
+function Button({ onPress, children }) {
   return (
     <Pressable
       style={(pressed) => [styles.button, pressed && styles.pressed]}
@@ -15,9 +15,11 @@ function Button({onPress, children}) {
 
 const styles = StyleSheet.create({
   button: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    margin: 4,
+    paddingHorizontal: 0,
+    paddingVertical: 8,
+    
+    marginBottom: 8,
+    height: 40,
     backgroundColor: Colors.primary800,
     elevation: 4,
     borderRadius: 4,
@@ -26,6 +28,9 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   text: {
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
     textAlign: "center",
     fontSize: 16,
     color: Colors.primary50,
