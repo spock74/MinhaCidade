@@ -27,7 +27,9 @@
       },
       "package": "com.spock74.st12",
       "config": {
-        "googleMapsApiKey": "AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc"
+        "googleMaps": {
+          "apiKey": "AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc"
+        }
       }
     },
     "web": {
