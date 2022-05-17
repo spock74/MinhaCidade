@@ -25,7 +25,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.spock74.st12"
+      "package": "com.spock74.st12",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
