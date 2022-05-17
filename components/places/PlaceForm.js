@@ -28,10 +28,11 @@ function PlaceForm() {
   const onPickedLocationHandler = useCallback( (pickedLocation)  => {
     setPickedLocation(pickedLocation);
   }, []);
-
+ 
   function savePlaceHandler(){
-    console.log("descr", enteredDescription);
-    console.log("location", pickedLocation);
+    console.log("---------------- ", new Date().getTime());
+    console.log("descricao", enteredDescription);
+    console.log("endereço", pickedLocation);
     console.log("imagem", takenImage);
   }    
   

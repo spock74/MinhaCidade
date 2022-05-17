@@ -14,32 +14,36 @@ import {
 } from "expo-location";
 import { getMapPreview, getAdress } from "../../geoloc/getMapPreview";
 
+///================================================
 function LocationPicker({ onPress, onPickedLocation }) {
   const [pickedLocation, setPickedLocation] = useState("");
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const route = useRoute();
 
+  //-----
   useEffect(() => {
     if (isFocused && route.params) {
       const mapPickedLocation = {
-        lat: route.params.pickedLocation.lat,
-        lon: route.params.pickedLocation.lon,
+        lat: route.params.pickedLat,
+        lon: route.params.pickedLon,
       };
+      console.log("mapPickedLocation", mapPickedLocation);
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
+  //------
 
   useEffect(() => {
     let adress = "";
     async function handleLocation() {
       if (pickedLocation) {
         adress = await getAdress(pickedLocation.lat, pickedLocation.lon);
-        onPickedLocation({...pickedLocation, endereco: adress});
+        onPickedLocation({ ...pickedLocation, endereco: adress });
       }
     }
     handleLocation();
-  }, [onPickedLocation, onPickedLocation]);
+  }, [onPickedLocation, pickedLocation]);
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -75,6 +79,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
     if (!hasPermission) {
       return;
     }
+
     const location = await getCurrentPositionAsync();
     setPickedLocation({
       lat: location.coords.latitude,

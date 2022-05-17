@@ -6,19 +6,19 @@ import IconButton from "./UI/IconButton";
 
 function FullMap({ route, navigation }) {
   const { loc } = route.params;
-  const [pickedLocation, setPickedLocation] = useState({
+  const [selectedLocation, setSelectedLocation] = useState({
     lat: loc.lat,
     lon: loc.lon,
   });
 
-  console.log("initial pickedLocation", pickedLocation);
+  console.log("initial selectedLocation", selectedLocation);
 
   const INITIAL_LATITUDE_DELTA = GEO_CONFIG.INITIAL_LATITUDE_DELTA / 5;
   const INITIAL_LONGITUDE_DELTA = GEO_CONFIG.INITIAL_LONGITUDE_DELTA / 5;
 
   const initialPosition = {
-    latitude: pickedLocation.lat,
-    longitude: pickedLocation.lon,
+    latitude: selectedLocation.lat,
+    longitude: selectedLocation.lon,
     latitudeDelta: INITIAL_LATITUDE_DELTA,
     longitudeDelta: INITIAL_LONGITUDE_DELTA,
   };
@@ -27,14 +27,14 @@ function FullMap({ route, navigation }) {
     console.log("event", event);
     const lat = event.nativeEvent.coordinate.latitude;
     const lon = event.nativeEvent.coordinate.longitude;
-    setPickedLocation({
+    setSelectedLocation({
       lat: lat,
       lon: lon,
     });
   }
 
-  const savePickLocationHandler = useCallback(() => {
-    if (!pickedLocation) {
+  const savePickedLocationHandler = useCallback(() => {
+    if (!selectedLocation) {
       Alert.alert(
         "Nenhum local selecionado",
         "Selecione um local clicando no mapa no local desejado"
@@ -42,8 +42,11 @@ function FullMap({ route, navigation }) {
       return;
     }
 
-    navigation.navigate("AddPlace", { pickedLocation });
-  }, [navigation, pickedLocation]);
+    navigation.navigate("AddPlace", {
+      pickedLat: selectedLocation.lat,
+      pickedLon: selectedLocation.lon,
+    });
+  }, [navigation, selectedLocation]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -52,11 +55,11 @@ function FullMap({ route, navigation }) {
           icon="save"
           size={25}
           color={tintColor}
-          onPress={savePickLocationHandler}
+          onPress={savePickedLocationHandler}
         />
       ),
     });
-  }, [navigation, savePickLocationHandler]);
+  }, [navigation, savePickedLocationHandler]);
 
   return (
     <MapView
@@ -64,11 +67,11 @@ function FullMap({ route, navigation }) {
       style={styles.map}
       initialRegion={initialPosition}
     >
-      {pickedLocation && (
+      {selectedLocation && (
         <Marker
           coordinate={{
-            latitude: pickedLocation.lat,
-            longitude: pickedLocation.lon,
+            latitude: selectedLocation.lat,
+            longitude: selectedLocation.lon,
           }}
         />
       )}
