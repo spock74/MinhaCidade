@@ -12,7 +12,7 @@ export function getMapPreview(lat, lon, zoom) {
   return imagePreviewUrl;
 }
 
-export async function getAdress(lat, lon) {
+export async function getAddress(lat, lon) {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${GOOGLE_API_KEY}`;
   const response = await fetch(url);
 

@@ -12,7 +12,7 @@ import {
   useForegroundPermissions,
   PermissionStatus,
 } from "expo-location";
-import { getMapPreview, getAdress } from "../../geoloc/getMapPreview";
+import { getMapPreview, getAddress } from "../../geoloc/getMapPreview";
 
 ///================================================
 function LocationPicker({ onPress, onPickedLocation }) {
@@ -28,18 +28,18 @@ function LocationPicker({ onPress, onPickedLocation }) {
         lat: route.params.pickedLat,
         lon: route.params.pickedLon,
       };
-      console.log("mapPickedLocation", mapPickedLocation);
+      //console.log("mapPickedLocation", mapPickedLocation);
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
   //------
 
   useEffect(() => {
-    let adress = "";
+    let address = "";
     async function handleLocation() {
       if (pickedLocation) {
-        adress = await getAdress(pickedLocation.lat, pickedLocation.lon);
-        onPickedLocation({ ...pickedLocation, endereco: adress });
+        address = await getAddress(pickedLocation.lat, pickedLocation.lon);
+        onPickedLocation({ ...pickedLocation, address: address });
       }
     }
     handleLocation();
@@ -51,7 +51,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
   async function veryPermissions() {
     if (locationPermissionInformation.status === PermissionStatus.GRANTED) {
       const permitionResponse = await requestPermission();
-      console.log("GRANTED permitionResponse", permitionResponse);
+      //console.log("GRANTED permitionResponse", permitionResponse);
 
       return permitionResponse.granted;
     }
@@ -60,7 +60,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
       locationPermissionInformation.status === PermissionStatus.UNDETERMINED
     ) {
       const permitionResponse = await requestPermission();
-      console.log("permitionResponse", permitionResponse);
+      //console.log("permitionResponse", permitionResponse);
 
       return permitionResponse.granted;
     }

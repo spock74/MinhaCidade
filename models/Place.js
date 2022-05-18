@@ -1,5 +1,6 @@
 export class Place {
-  constructor(description, image, location, user, destination) {
+  constructor(id, description, image, location, user, destination) {
+    this.id = id,
     this.description = description;
     this.image = image;
     this.location = location;

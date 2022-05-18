@@ -31,23 +31,25 @@ function PlaceForm({ onCreatePlace }) {
     setPickedLocation(pickedLocation);
   }, []);
 
-  function onCreatePlace(place) {
-    console.log("place", place);
-    axios.post("https://st11-3f424-default-rtdb.firebaseio.com/lugar.json", place);
-  }
+  // function onCreatePlace(place) {
+  //   console.log("place", place);
+  //   axios.post(
+  //     "https://st11-3f424-default-rtdb.firebaseio.com/lugar.json",
+  //     place
+  //   );
+  // }
 
   function savePlaceHandler() {
-    const ts = new Date().getTime().toString();
-    const quando = new Date().toISOString();
-
     const placeData = new Place(
+      Math.random().toString(),
       enteredDescription,
       takenImage,
       pickedLocation,
       "user123",
-      "Destino: TODO"
+      "Destino: TODO",
     );
-  
+
+    console.log("placeData", placeData);
     onCreatePlace(placeData);
   }
 

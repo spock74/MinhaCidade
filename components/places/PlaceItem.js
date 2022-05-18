@@ -3,10 +3,11 @@ import { Image, Pressable, View, StyleSheet, Text } from "react-native";
 function PlaceItem({ place, onSelect }) {
   return (
     <Pressable onPress={onSelect}>
-      <Image source={{ uri: place.imageUri }} />
+      <Image source={{ uri: place.image.uri }} />
       <View>
-        <Text>{place.title}</Text>
-        <Text>{place.address}</Text>
+        <Text style={{color:"white"}}>{place.description}</Text>
+        <Text style={{color:"white"}}>{place.location.address}</Text>
+        <Text style={{color:"white"}}>{place.image.uri}</Text>
       </View>
     </Pressable>
   );

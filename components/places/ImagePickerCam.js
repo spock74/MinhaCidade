@@ -16,7 +16,7 @@ function ImagePickerCam({onTakenImage}) {
       aspect: [1, 1],
       quality: 1,
     });
-    console.log(image);
+    //console.log(image);
     setImage(image);
     onTakenImage(image);
   }

@@ -11,6 +11,7 @@ import FullMap from "./components/places/FullMap";
 
 //---------------- temp ------------------------------------
 import { LogBox } from "react-native";
+import { Header } from "react-native/Libraries/NewAppScreen";
 LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."]);
 //---------------- temp ------------------------------------
 
@@ -39,6 +40,7 @@ export default function App() {
             options={({ navigation }) => ({
               title: "Todos os Locais",
               headerRight: ({ tintColor }) => (
+                
                 <IconButton
                   icon="add-circle"
                   size={28}
