@@ -73,7 +73,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
       return false;
     }
   }
-
+  
   async function getLocationHandler() {
     const hasPermission = await veryPermissions();
     if (!hasPermission) {
@@ -91,7 +91,9 @@ function LocationPicker({ onPress, onPickedLocation }) {
     navigation.navigate("FullMap", { loc: pickedLocation });
   }
 
-  function savePlacceHandler() {
+
+  // gerenciar sqlite?
+  function savePlaceHandler() {
     // onPress(pickedLocation);
   }
 

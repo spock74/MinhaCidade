@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
 } from "react-native";
 import axios from "axios";
 import { useState, useCallback } from "react";
@@ -31,13 +30,15 @@ function PlaceForm({ onCreatePlace }) {
     setPickedLocation(pickedLocation);
   }, []);
 
-  // function onCreatePlace(place) {
-  //   console.log("place", place);
-  //   axios.post(
-  //     "https://st11-3f424-default-rtdb.firebaseio.com/lugar.json",
-  //     place
-  //   );
-  // }
+  function onCreatePlaceSavePlaceInBackEnd(place) {
+    return axios
+      .post("https://st11-3f424-default-rtdb.firebaseio.com/lugar.json", place)
+      .then((response) => {
+        // response.data.name como idName (id do objeto no firestore database) 
+        const place_ = {...place, idName: response.data.name};
+        console.log("novo objeto: resp assync axios: ", place_);
+      });
+  }
 
   function savePlaceHandler() {
     const placeData = new Place(
@@ -46,11 +47,16 @@ function PlaceForm({ onCreatePlace }) {
       takenImage,
       pickedLocation,
       "user123",
-      "Destino: TODO",
+      "Destino: TODO"
     );
 
-    console.log("placeData", placeData);
+    console.log(
+      " NA FUNCAO savePlaceHandler ",
+      "****************************************"
+    );
     onCreatePlace(placeData);
+
+    onCreatePlaceSavePlaceInBackEnd(placeData);
   }
 
   return (

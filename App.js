@@ -1,19 +1,17 @@
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import LoginScreen from "./screens/login/LoginScreen";
+import SignupScreen from "./screens/login/SignupScreen";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
+import FullMap from "./components/places/FullMap";
 import IconButton from "./components/places/UI/IconButton";
 import { Colors } from "./constants/Colors";
 
-import FullMap from "./components/places/FullMap";
-
-//---------------- temp ------------------------------------
-import { LogBox } from "react-native";
-import { Header } from "react-native/Libraries/NewAppScreen";
-LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."]);
-//---------------- temp ------------------------------------
 
 const Stack = createNativeStackNavigator();
 

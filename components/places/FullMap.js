@@ -16,6 +16,7 @@ function FullMap({ route, navigation }) {
   const INITIAL_LATITUDE_DELTA = GEO_CONFIG.INITIAL_LATITUDE_DELTA / 5;
   const INITIAL_LONGITUDE_DELTA = GEO_CONFIG.INITIAL_LONGITUDE_DELTA / 5;
 
+  
   const initialPosition = {
     latitude: selectedLocation.lat,
     longitude: selectedLocation.lon,

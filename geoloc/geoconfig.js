@@ -3,3 +3,7 @@ export const GEO_CONFIG = {
   INITIAL_LATITUDE_DELTA: 0.0122,
   INITIAL_LONGITUDE_DELTA: 0.01,
 }
+
+export const GOOGLE_API_KEY = "AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc";
+
+export const INITIAL_ZOOM_PREVIEW = 18;

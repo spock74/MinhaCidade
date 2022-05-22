@@ -29,7 +29,7 @@ export const Colors_x = {
   gray900: "#212121",
 };
 
-export const Colors_ = {
+export const ColorsRed = {
   gray50: "#fafafa",
   gray100: "#f5f5f5",
   gray200: "#eeeeee",
