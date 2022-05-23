@@ -6,6 +6,7 @@ import {
   TextInput,
 } from "react-native";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useCallback } from "react";
 import { Colors } from "../../constants/Colors";
 import { Place } from "../../models/Place";
@@ -37,6 +38,8 @@ function PlaceForm({ onCreatePlace }) {
         // response.data.name como idName (id do objeto no firestore database) 
         const place_ = {...place, idName: response.data.name};
         console.log("novo objeto: resp assync axios: ", place_);
+        AsyncStorage.setItem(place_.idName, JSON.stringify(place_)).then((m) => {console.log("salvou no async storage: ", m)});
+        
       });
   }
 

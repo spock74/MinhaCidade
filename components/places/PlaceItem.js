@@ -8,6 +8,7 @@ import {
   Text,
 } from "react-native";
 
+
 import { getMapPreview } from "../../geoloc/getMapPreview";
 import { INITIAL_ZOOM_PREVIEW } from "../../geoloc/geoconfig";
 
@@ -15,6 +16,8 @@ function PlaceItem({ place, onSelect }) {
   function f() {
     Alert.alert("Deixa de ser preguiçoso!");
   }
+
+  
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -37,15 +40,20 @@ function PlaceItem({ place, onSelect }) {
         </View>
         <View style={styles.viewLinhaText}>
           <Text style={{ color: "white" }}>
-            Endereço:{" "}{place.location.address}
+            Endereço: {place.location.address}
           </Text>
-          <Text style={{ color: "white" }}>Data de Criação:{" "}</Text>
           <Text style={{ color: "white" }}>
-            Drescrição:{" "}{place.description}
+            Data de Criação: {new Date(place.date).toLocaleDateString()}{" "}
+            {new Date(place.date).toLocaleTimeString()}
           </Text>
-          <Text style={{ color: "white" }}>{" "}</Text>
-          <Text style={{ color: "white" }}>Latitude:{" "}{place.location.lat}</Text>
-          <Text style={{ color: "white" }}>Longitude:{" "}{place.location.lon}</Text>
+          <Text style={{ color: "white" }}>
+            Drescrição: {place.description}
+          </Text>
+          <Text style={{ color: "white" }}> </Text>
+          <Text style={{ color: "white" }}>Latitude: {place.location.lat}</Text>
+          <Text style={{ color: "white" }}>
+            Longitude: {place.location.lon}
+          </Text>
         </View>
       </View>
     </ScrollView>
