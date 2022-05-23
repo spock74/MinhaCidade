@@ -1,4 +1,4 @@
-.stuff
+.google-services.json
 node_modules/
 build/
 .expo/
@@ -13,5 +13,6 @@ npm-debug.*
 *.orig.*
 web-build/
 
+.stuff
 # macOS
 .DS_Store

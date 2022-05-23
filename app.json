@@ -26,6 +26,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.spock74.st12",
+      "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc"
