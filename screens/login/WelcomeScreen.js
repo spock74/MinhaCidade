@@ -7,8 +7,8 @@ import { AuthContext } from "../../store/auth-context";
 
 function WelcomeScreen() {
   const authCtx = useContext(AuthContext);
-  const token = authCtx.token;
-  const [user, setUser] = useState("");
+  const email = authCtx.email;
+  //const [user, setUser] = useState("");
   // useEffect(() => {
   //   axios
   //     .get(
@@ -22,32 +22,12 @@ function WelcomeScreen() {
   // }, [token]);
 
 
-
-  useEffect(() => {
-    async function getToken() {
-      const storedToken = await AsyncStorage.getItem("authToken_st11");
-      if (storedToken) {
-        authCtx.Authenticate(storedToken.idToken);
-      }
-      setUser(storedToken.email);
-    }
-
-    getToken();
-  }, [token]);
-
-
-
-
-
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Welcome {user}</Text>
-      <Text>You authenticated successfully!</Text>
+      <Text style={styles.title}>Bem-vindo {email}</Text>
     </View>
   );
 }
-
-export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -62,3 +42,5 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 });
+
+export default WelcomeScreen;

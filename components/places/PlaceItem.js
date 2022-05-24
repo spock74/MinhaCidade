@@ -22,9 +22,7 @@ function PlaceItem({ place, onSelect }) {
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.headerInfo}>
-        <Text style={{ color: "white" }}>
-          Endereço: {place.address}
-        </Text>
+        <Text style={{ color: "white" }}>Endereço: {place.address}</Text>
         <Text style={{ color: "white" }}>
           Data de Criação: {new Date(place.date).toLocaleDateString()}{" "}
           {new Date(place.date).toLocaleTimeString()}
@@ -39,28 +37,16 @@ function PlaceItem({ place, onSelect }) {
         <View style={styles.viewLinhaImagem}>
           <ScrollView horizontal={true}>
             <Pressable onPress={f}>
-              <Image
-                style={styles.imageCam}
-                source={{ uri: place.imageUri }}
-              />
+              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
-              <Image
-                style={styles.imageCam}
-                source={{ uri: place.imageUri }}
-              />
+              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
-              <Image
-                style={styles.imageCam}
-                source={{ uri: place.imageUri }}
-              />
+              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
-              <Image
-                style={styles.imageCam}
-                source={{ uri: place.imageUri }}
-              />
+              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
             </Pressable>
           </ScrollView>
           <ScrollView horizontal={true}>

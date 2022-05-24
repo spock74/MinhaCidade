@@ -1,16 +1,21 @@
+//import "react-native-gesture-handler";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import AppLoading from "expo-app-loading";
 import LoginScreen from "./screens/login/LoginScreen";
 import SignupScreen from "./screens/login/SignupScreen";
+import WelcomeScreen from "./screens/login/WelcomeScreen";
 
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
+import { Ionicons } from "@expo/vector-icons";
 import IconButton from "./components/places/UI/IconButton";
 import { Colors } from "./constants/Colors";
 
@@ -19,6 +24,7 @@ import { initSqlite } from "./util/database";
 import FullMap from "./components/places/FullMap";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function AuthStack() {
   return (
@@ -32,6 +38,43 @@ function AuthStack() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
     </Stack.Navigator>
+  );
+}
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "#351401" },
+        headerTintColor: "white",
+        sceneContainerStyle: { backgroundColor: "#3f2f25" },
+        drawerContentStyle: { backgroundColor: "#351401" },
+        drawerInactiveTintColor: "white",
+        drawerActiveTintColor: "#351401",
+        drawerActiveBackgroundColor: "#e4baa1",
+      }}
+    >
+      <Drawer.Screen
+        name="AllPlaces"
+        component={AllPlaces}
+        options={{
+          title: "Locais",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="AddPlace"
+        component={AddPlace}
+        options={{
+          title: "Adicionar",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="star" color={color} size={size} />
+          ),
+        }}
+      />
+    </Drawer.Navigator>
   );
 }
 
@@ -49,6 +92,13 @@ function AuthenticatedStack() {
         },
       }}
     >
+      <Stack.Screen
+        name="Drawer"
+        component={DrawerNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="AllPlaces"
         component={AllPlaces}
