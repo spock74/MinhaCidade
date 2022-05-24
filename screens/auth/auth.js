@@ -14,9 +14,9 @@ async function authenticate(model, email, password) {
     returnSecureToken: true,
   });
 
-  const token = response.data.idToken;
+  const token = response.data;
 
-  console.log('response.data', response.data);
+  console.log("----- token -----", token);
   return token;
 }
 
@@ -27,4 +27,3 @@ export function createUser(email, password) {
 export function login(email, password) {
   return authenticate("signInWithPassword", email, password);
 }
-

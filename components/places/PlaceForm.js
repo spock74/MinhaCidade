@@ -7,18 +7,22 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import { Colors } from "../../constants/Colors";
-import { ColorsRed } from "../../constants/Colors";
 import { Place } from "../../models/Place";
 import ImagePickerCam from "./ImagePickerCam";
 import LocationPicker from "./LocationPicker";
 import Button from "./UI/Button";
+import { AuthContext } from "../../store/auth-context"; 
 
 function PlaceForm({ onCreatePlace }) {
   const [enteredDescription, setEnteredDescription] = useState("");
   const [pickedLocation, setPickedLocation] = useState({});
   const [takenImage, setTakenImage] = useState({});
+
+  const AuthCtx = useContext(AuthContext);
+  // const [email, setEmail] = useState(); AuthCtx.token.email;
+
 
   function changeDescriptiontHandler(enteredText) {
     setEnteredDescription(enteredText);
@@ -27,6 +31,7 @@ function PlaceForm({ onCreatePlace }) {
   function onTakenImageHandler(image) {
     setTakenImage(image);
   }
+
 
   const onPickedLocationHandler = useCallback((pickedLocation) => {
     setPickedLocation(pickedLocation);
@@ -38,12 +43,13 @@ function PlaceForm({ onCreatePlace }) {
       .then((response) => {
         // response.data.name como idName (id do objeto no firestore database) 
         const place_ = {...place, idName: response.data.name};
-        AsyncStorage.setItem(place_.idName, JSON.stringify(place_)).then((m) => {console.log("salvou no async storage: ", m)});
+        //AsyncStorage.setItem(place_.idName, JSON.stringify(place_)).then((m) => {console.log("salvou no async storage: ", m)});
         onCreatePlace(place_);
-        console.log("novo objeto: resp assync axios: ", place_);
+        console.log("novo objeto: resp assync axios: ", AuthCtx);
         
       });
   }
+
 
   function savePlaceHandler() {
     const placeData = new Place(

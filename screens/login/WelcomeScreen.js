@@ -27,9 +27,9 @@ function WelcomeScreen() {
     async function getToken() {
       const storedToken = await AsyncStorage.getItem("authToken_st11");
       if (storedToken) {
-        authCtx.Authenticate(storedToken);
+        authCtx.Authenticate(storedToken.idToken);
       }
-      setUser(false);
+      setUser(storedToken.email);
     }
 
     getToken();
