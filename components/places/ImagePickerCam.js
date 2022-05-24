@@ -31,7 +31,7 @@ function ImagePickerCam({onTakenImage}) {
       <View style={styles.imagePrev}>{imagePreview}</View>
       <OutLinedButton
         icon="camera"
-        color={Colors.primary400}
+        color={Colors.primary50}
         size={30}
         title="Foto"
         onPress={takeImageHandler}
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     marginVertical: 0,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Colors.gray300,
+    backgroundColor: Colors.primary100,
     borderRadius: 10,
   },
   image: {

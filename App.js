@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import LoginScreen from "./screens/login/LoginScreen";
 import SignupScreen from "./screens/login/SignupScreen";
+
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
@@ -37,15 +38,16 @@ function AuthenticatedStack() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors.primary700,
+          backgroundColor: Colors.primary800,
         },
         headerTintColor: Colors.gray50,
         contentStyle: {
-          backgroundColor: Colors.gray900,
-          tintColor: Colors.primary50,
+          backgroundColor: Colors.primary50,
+          tintColor: "black",
         },
       }}
     >
+
       <Stack.Screen
         name="AllPlaces"
         component={AllPlaces}

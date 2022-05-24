@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 0,
-    backgroundColor: Colors.gray300,
+    backgroundColor: Colors.primary100,
     borderRadius: 10,
   },
   map: {
@@ -157,6 +157,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     borderRadius: 10,
+    backgroundColor: Colors.primary100,
+  },
+  locationPreview: {
+    flex: 1,
+    width: "100%",
+    height: 100,
+    borderRadius: 10,
+    backgroundColor: Colors.primary100,
   },
   buttons: {
     width: "100%",

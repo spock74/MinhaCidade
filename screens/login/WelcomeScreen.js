@@ -8,22 +8,40 @@ import { AuthContext } from "../../store/auth-context";
 function WelcomeScreen() {
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
-  const [text, setText] = useState("oi");
+  const [user, setUser] = useState("");
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "https://st11-3f424-default-rtdb.firebaseio.com/mensagem.json?auth=" +
+  //         token
+  //     ) 
+  //     .then((response) => {
+  //       console.log * ("respots>>>> ", response.data);
+  //       setText(response.data);
+  //     });
+  // }, [token]);
+
+
+
   useEffect(() => {
-    axios
-      .get(
-        "https://st11-3f424-default-rtdb.firebaseio.com/mensagem.json?auth=" +
-          token
-      )
-      .then((response) => {
-        console.log * ("respots>>>> ", response.data);
-        setText(response.data);
-      });
+    async function getToken() {
+      const storedToken = await AsyncStorage.getItem("authToken_st11");
+      if (storedToken) {
+        authCtx.Authenticate(storedToken);
+      }
+      setUser(false);
+    }
+
+    getToken();
   }, [token]);
+
+
+
+
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Welcome!! {text}</Text>
+      <Text style={styles.title}>Welcome {user}</Text>
       <Text>You authenticated successfully!</Text>
     </View>
   );

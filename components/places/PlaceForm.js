@@ -9,6 +9,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useCallback } from "react";
 import { Colors } from "../../constants/Colors";
+import { ColorsRed } from "../../constants/Colors";
 import { Place } from "../../models/Place";
 import ImagePickerCam from "./ImagePickerCam";
 import LocationPicker from "./LocationPicker";
@@ -74,7 +75,7 @@ function PlaceForm({ onCreatePlace }) {
           value={enteredDescription}
         />
       </View>
-      <Button onPress={savePlaceHandler}>Salvar</Button>
+      <Button style={styles.butonSave} onPress={savePlaceHandler}>Salvar</Button>
     </ScrollView>
   );
 }
@@ -90,7 +91,10 @@ const styles = StyleSheet.create({
     marginTop: 0,
     fontSize: 18,
     marginBottom: 4,
-    color: Colors.primary50,
+    color: Colors.primary800,
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent  : "center",
   },
   input: {
     marginVertical: 0,
@@ -98,9 +102,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     fontSize: 18,
     color: Colors.gray900,
-    borderBottomWidth: 4,
-    borderBottomColor: Colors.primary800,
-    backgroundColor: Colors.gray400,
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.primary200,
+    backgroundColor: Colors.primary100,
     borderRadius: 10,
     marginBottom: 18,
   },
@@ -108,6 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     opacity: 1,
     marginTop: 12,
+    backgroundColor: "red",
   },
 });
 

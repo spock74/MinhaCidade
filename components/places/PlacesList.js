@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   fallBackText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "white",
+    color: Colors.primary800,
   },
 });
 export default PlacesList;
