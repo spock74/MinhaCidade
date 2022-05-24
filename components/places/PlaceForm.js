@@ -38,8 +38,9 @@ function PlaceForm({ onCreatePlace }) {
       .then((response) => {
         // response.data.name como idName (id do objeto no firestore database) 
         const place_ = {...place, idName: response.data.name};
-        console.log("novo objeto: resp assync axios: ", place_);
         AsyncStorage.setItem(place_.idName, JSON.stringify(place_)).then((m) => {console.log("salvou no async storage: ", m)});
+        onCreatePlace(place_);
+        console.log("novo objeto: resp assync axios: ", place_);
         
       });
   }
@@ -55,11 +56,11 @@ function PlaceForm({ onCreatePlace }) {
       "Destino: TODO"
     );
 
-    console.log(
-      " NA FUNCAO savePlaceHandler ",
-      "****************************************"
-    );
-    onCreatePlace(placeData);
+    // console.log(
+    //   " NA FUNCAO savePlaceHandler ",
+    //   "****************************************"
+    // );
+    // onCreatePlace(placeData);
 
     onCreatePlaceSavePlaceInBackEnd(placeData);
   }
