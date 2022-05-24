@@ -1,6 +1,6 @@
 projeto minhacidade
 API_KEY AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc
-
+        AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc
 
 https://maps.googleapis.com/maps/api/staticmap?center=${}&size=400x400&key=${API_KEY}
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "765731885401",
+    "firebase_url": "https://st11-3f424-default-rtdb.firebaseio.com",
+    "project_id": "st11-3f424",
+    "storage_bucket": "st11-3f424.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765731885401:android:ac53384847d5c64d77fc48",
+        "android_client_info": {
+          "package_name": "com.spock74.st12"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765731885401-ii4ea58ghi90vengd7h9mfclgh2gi3pc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDowBloT_HEX4Ul6-7GTKXcLwRNg23NZo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "765731885401-ii4ea58ghi90vengd7h9mfclgh2gi3pc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
