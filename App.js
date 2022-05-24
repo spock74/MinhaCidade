@@ -4,7 +4,7 @@ import { useEffect, useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import  AppLoading  from "expo-app-loading";
+import AppLoading from "expo-app-loading";
 import LoginScreen from "./screens/login/LoginScreen";
 import SignupScreen from "./screens/login/SignupScreen";
 
@@ -49,7 +49,6 @@ function AuthenticatedStack() {
         },
       }}
     >
-
       <Stack.Screen
         name="AllPlaces"
         component={AllPlaces}
@@ -103,6 +102,7 @@ function Root() {
       const storedToken = await AsyncStorage.getItem("authToken_st11");
       if (storedToken) {
         authCtx.Authenticate(storedToken);
+        console.log("storedToken appp ******", storedToken);
       }
       setIsLoading(false);
     }
@@ -110,7 +110,7 @@ function Root() {
     getToken();
   }, []);
 
-  if(isLoading) {
+  if (isLoading) {
     return <AppLoading />;
   }
 
@@ -121,16 +121,18 @@ export default function App() {
   const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {
-    initSqlite().then(() => {
-      setDbInitialized(true);
-    }).catch((err) => {
-      console.log("Error initializing database: ", err);
-    });
+    initSqlite()
+      .then(() => {
+        setDbInitialized(true);
+      })
+      .catch((err) => {
+        console.log("Error initializing database: ", err);
+      });
   }, []);
 
-if(!dbInitialized) {
-  return <AppLoading />;
-}
+  if (!dbInitialized) {
+    return <AppLoading />;
+  }
 
   return (
     <>

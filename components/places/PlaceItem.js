@@ -31,7 +31,7 @@ function PlaceItem({ place, onSelect }) {
           {new Date(place.date).toLocaleTimeString()}
         </Text>
         <Text style={{ color: "white" }}>Drescrição: {place.description}</Text>
-        <Text style={{ color: "white" }}>Usuário: {} </Text>
+        <Text style={{ color: "white" }}>Usuário: {place.user} </Text>
         <Text style={{ color: "white" }}>Latitude: {place.latitude}</Text>
         <Text style={{ color: "white" }}>Longitude: {place.longitude}</Text>
       </View>

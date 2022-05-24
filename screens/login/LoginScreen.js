@@ -13,7 +13,8 @@ function LoginScreen() {
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);
-      authCtx.Authenticate(token.idToken);
+      authCtx.Authenticate(token);
+      console.log("Sucesso 7777777", token);
     } catch (error) {
       console.log("error:: ", error);
       Alert.alert(
