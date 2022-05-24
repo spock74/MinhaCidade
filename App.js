@@ -4,7 +4,7 @@ import { useEffect, useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import  AppLoading  from "expo-app-loading";
 import LoginScreen from "./screens/login/LoginScreen";
 import SignupScreen from "./screens/login/SignupScreen";
 
@@ -13,6 +13,8 @@ import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/places/UI/IconButton";
 import { Colors } from "./constants/Colors";
+
+import { initSqlite } from "./util/database";
 
 import FullMap from "./components/places/FullMap";
 
@@ -108,19 +110,33 @@ function Root() {
     getToken();
   }, []);
 
-  // if(isLoading) {
-  //   return <AppLoading />;
-  // }
+  if(isLoading) {
+    return <AppLoading />;
+  }
 
   return <Navigation />;
 }
 
 export default function App() {
+  const [dbInitialized, setDbInitialized] = useState(false);
+
+  useEffect(() => {
+    initSqlite().then(() => {
+      setDbInitialized(true);
+    }).catch((err) => {
+      console.log("Error initializing database: ", err);
+    });
+  }, []);
+
+if(!dbInitialized) {
+  return <AppLoading />;
+}
+
   return (
     <>
       <StatusBar style="light" />
       <AuthContextProvider>
-        <Navigation />
+        <Root />
       </AuthContextProvider>
     </>
   );

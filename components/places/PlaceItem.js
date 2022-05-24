@@ -8,6 +8,7 @@ import {
   Text,
 } from "react-native";
 
+
 import { Colors } from "../../constants/Colors";
 import { ColorsRed } from "../../constants/Colors";
 
