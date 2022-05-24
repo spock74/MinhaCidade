@@ -19,7 +19,6 @@ function PlaceItem({ place, onSelect }) {
     Alert.alert("Deixa de ser preguiçoso!");
   }
 
-
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.headerInfo}>
