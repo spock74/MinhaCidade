@@ -46,10 +46,11 @@ function PlaceForm({ onCreatePlace }) {
 
   function savePlaceHandler() {
     const placeData = new Place(
-      Math.random().toString(),
       enteredDescription,
-      takenImage,
-      pickedLocation,
+      takenImage.uri,
+      pickedLocation.address,
+      pickedLocation.lat,
+      pickedLocation.lon,
       "user123",
       "Destino: TODO"
     );

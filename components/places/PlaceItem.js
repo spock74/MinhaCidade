@@ -8,7 +8,6 @@ import {
   Text,
 } from "react-native";
 
-
 import { Colors } from "../../constants/Colors";
 import { ColorsRed } from "../../constants/Colors";
 
@@ -20,11 +19,12 @@ function PlaceItem({ place, onSelect }) {
     Alert.alert("Deixa de ser preguiçoso!");
   }
 
+
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.headerInfo}>
         <Text style={{ color: "white" }}>
-          Endereço: {place.location.address}
+          Endereço: {place.address}
         </Text>
         <Text style={{ color: "white" }}>
           Data de Criação: {new Date(place.date).toLocaleDateString()}{" "}
@@ -32,8 +32,8 @@ function PlaceItem({ place, onSelect }) {
         </Text>
         <Text style={{ color: "white" }}>Drescrição: {place.description}</Text>
         <Text style={{ color: "white" }}>Usuário: {} </Text>
-        <Text style={{ color: "white" }}>Latitude: {place.location.lat}</Text>
-        <Text style={{ color: "white" }}>Longitude: {place.location.lon}</Text>
+        <Text style={{ color: "white" }}>Latitude: {place.latitude}</Text>
+        <Text style={{ color: "white" }}>Longitude: {place.longitude}</Text>
       </View>
 
       <View style={styles.container}>
@@ -42,25 +42,25 @@ function PlaceItem({ place, onSelect }) {
             <Pressable onPress={f}>
               <Image
                 style={styles.imageCam}
-                source={{ uri: place.image.uri }}
+                source={{ uri: place.imageUri }}
               />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
               <Image
                 style={styles.imageCam}
-                source={{ uri: place.image.uri }}
+                source={{ uri: place.imageUri }}
               />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
               <Image
                 style={styles.imageCam}
-                source={{ uri: place.image.uri }}
+                source={{ uri: place.imageUri }}
               />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
               <Image
                 style={styles.imageCam}
-                source={{ uri: place.image.uri }}
+                source={{ uri: place.imageUri }}
               />
             </Pressable>
           </ScrollView>
@@ -70,8 +70,8 @@ function PlaceItem({ place, onSelect }) {
                 style={styles.miniMap}
                 source={{
                   uri: getMapPreview(
-                    place.location.lat,
-                    place.location.lon,
+                    place.latitude,
+                    place.longitude,
                     INITIAL_ZOOM_PREVIEW
                   ),
                 }}

@@ -1,9 +1,10 @@
 export class Place {
-  constructor(id, description, image, location, user, destination) {
-    this.id = id,
+  constructor(description, imageUri, address, latitude, longitude, user, destination) {
     this.description = description;
-    this.image = image;
-    this.location = location;
+    this.imageUri = imageUri;
+    this.address = address;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.user = user;
     this.destination = destination;
     this.timestamp = new Date().getTime().toString();

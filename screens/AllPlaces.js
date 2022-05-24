@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import PlacesList from "../components/places/PlacesList";
+import { getAllPlacesSql } from "../util/database";
 
 function AllPlaces({ route }) {
   const [loadedPlaces, setLoadedPlaces] = useState([]);
@@ -24,21 +25,16 @@ function AllPlaces({ route }) {
   };
 
   useEffect(() => {
-    if (isFocused && route.params) {
-      // if( array.forEach(element=> {
-      //   route.params.place
-      // });){
-      //   return
-      // }
-      // setLoadedPlaces(route.params.placeData);
-      setLoadedPlaces((curPlaces) => [...curPlaces, route.params.place]);
-      // setLoadedPlaces = (curPlaces) => {
-      //   curPlaces.forEach((elem) => {
-      //     elem.place.id !== route.params.place.id ? [...curPlaces, route.params.place] : [curPlaces];
-      //   });
-      // }
+    async function loadPlaces() {
+      const places = await getAllPlacesSql();
+      setLoadedPlaces(places);
     }
-  }, [isFocused, route.params]);
+    if (isFocused) {
+      loadPlaces();
+    }
+    // getAllPlacesSql();
+    // setLoadedPlaces((curPlaces) => [...curPlaces, route.params.place]);
+  }, [isFocused]);
 
   return <PlacesList places={loadedPlaces} />;
 }
