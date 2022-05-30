@@ -92,6 +92,7 @@ export function getAllPlacesSql() {
 
             places.push(
               new Place(
+                item.id_name,
                 item.description,
                 item.imageUri,
                 item.address,
@@ -104,7 +105,84 @@ export function getAllPlacesSql() {
               )
             );
           }
-          console.log("result fro getAllPlacesSql: ", places);
+          console.log("result from getAllPlacesSql: ", places);
+
+          resolve(result.rows._array);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+}
+
+
+
+export function getPlacesSqlByUserEmail(email) {
+  return new Promise((resolve, reject) => {
+    database.transaction((tx) => {
+      tx.executeSql(
+        `SELECT * FROM PLACES WHERE user = ?`,
+        [ email ],
+        (_, result) => {
+          const places = [];
+          for (const item of result.rows._array) {
+
+            places.push(
+              new Place(
+                item.id_name,
+                item.description,
+                item.imageUri,
+                item.address,
+                item.latitude,
+                item.longitude,
+                item.user,
+                item.destination,
+                item.timestamp,
+                item.date
+              )
+            );
+          }
+          console.log("result from getPlacesSqlByUserEmail: ", places);
+
+          resolve(result.rows._array);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+}
+
+
+export function getPlacesSqlByIdName(idName) {
+  return new Promise((resolve, reject) => {
+    database.transaction((tx) => {
+      tx.executeSql(
+        `SELECT * FROM PLACES WHERE id_name = ?`,
+        [ idName ],
+        (_, result) => {
+          const places = [];
+          for (const item of result.rows._array) {
+
+            places.push(
+              new Place(
+                item.id_name,
+                item.description,
+                item.imageUri,
+                item.address,
+                item.latitude,
+                item.longitude,
+                item.user,
+                item.destination,
+                item.timestamp,
+                item.date
+              )
+            );
+          }
+          console.log("result from getPlacesSqlByIdName: ", places);
 
           resolve(result.rows._array);
         },

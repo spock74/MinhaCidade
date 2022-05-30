@@ -7,6 +7,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { useNavigation } from "@react-navigation/native"; 
 import AppLoading from "expo-app-loading";
 import LoginScreen from "./screens/login/LoginScreen";
 import SignupScreen from "./screens/login/SignupScreen";
@@ -42,6 +43,9 @@ function AuthStack() {
 }
 
 function DrawerNavigator() {
+  const authCtx = useContext(AuthContext);
+  const navigation = useNavigation();
+
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -54,23 +58,37 @@ function DrawerNavigator() {
         drawerActiveBackgroundColor: "#e4baa1",
       }}
     >
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.Logout}
+            />
+          ),
+        }}
+      />      
       <Drawer.Screen
         name="AllPlaces"
         component={AllPlaces}
         options={{
           title: "Locais",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="list" color={color} size={size} />
+            <Ionicons name="list" color={color} size={size} onPress={() => navigation.navigate("AddPlace")}/>
           ),
         }}
       />
-      <Drawer.Screen
+      <Drawer.Screen  
         name="AddPlace"
         component={AddPlace}
         options={{
           title: "Adicionar",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="star" color={color} size={size} />
+            <Ionicons name="add-circle" color={color} size={size} />
           ),
         }}
       />
