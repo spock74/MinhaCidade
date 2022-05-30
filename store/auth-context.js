@@ -18,7 +18,7 @@ function AuthContextProvider({ children }) {
     setAuthToken(token);
     setEmail(token.email);
     // persist the token in local storage 
-    AsyncStorage.setItem('authToken_st11', token);
+    AsyncStorage.setItem('authToken_st11', token.id);
     //
     AsyncStorage.setItem('email_st11', token.email);
   }

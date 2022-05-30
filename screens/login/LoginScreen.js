@@ -8,12 +8,13 @@ import { AuthContext } from "../../store/auth-context";
 function LoginScreen() {
   const [isAuthenticanting, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
+  //const email = authCtx.email;
 
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);
-      authCtx.Authenticate(token);
+      authCtx.Authenticate(token.idToken);
       console.log("Sucesso 7777777", token);
     } catch (error) {
       console.log("error:: ", error);

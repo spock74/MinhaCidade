@@ -9,12 +9,12 @@ export function initSqlite() {
         `CREATE TABLE IF NOT EXISTS PLACES (
                 id INTEGER PRIMARY KEY NOT NULL, 
                 id_name TEXT NOT NULL,
+                user TEXT NOT NULL,
                 description TEXT NOT NULL, 
                 imageUri TEXT NOT NULL,
                 address TEXT NOT NULL, 
                 latitude REAL NOT NULL, 
                 longitude REAL NOT NULL, 
-                user TEXT NOT NULL,
                 destination TEXT NOT NULL,
                 timestamp TEXT NOT NULL,
                 date TEXT NOT NULL)`,
@@ -36,25 +36,25 @@ export function insertPlaceSql(place) {
       tx.executeSql(
         `INSERT INTO PLACES (
           id_name, 
+          user, 
           description, 
           imageUri, 
           address, 
           latitude, 
           longitude, 
-          user, 
           destination, 
           timestamp,
           date) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           place.idName ? place.idName : "__",
+          place.user,
           place.description,
           place.imageUri,
           place.address,
           place.latitude,
           place.longitude,
-          place.user,
-          place.destination,
+          place.destination || "__",
           place.timestamp,
           place.date,
         ],
@@ -70,12 +70,13 @@ export function insertPlaceSql(place) {
   });
 }
 
+// this.idName
+// this.user = user;
 // this.description = description;
 // this.imageUri = imageUri;
 // this.address = address;
 // this.latitude = latitude;
 // this.longitude = longitude;
-// this.user = user;
 // this.destination = destination;
 // this.timestamp = new Date().getTime().toString();
 // this.date = new Date().toISOString();
@@ -89,16 +90,15 @@ export function getAllPlacesSql() {
         (_, result) => {
           const places = [];
           for (const item of result.rows._array) {
-
             places.push(
               new Place(
                 item.id_name,
+                item.user,
                 item.description,
                 item.imageUri,
                 item.address,
                 item.latitude,
                 item.longitude,
-                item.user,
                 item.destination,
                 item.timestamp,
                 item.date
@@ -117,27 +117,24 @@ export function getAllPlacesSql() {
   });
 }
 
-
-
 export function getPlacesSqlByUserEmail(email) {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
         `SELECT * FROM PLACES WHERE user = ?`,
-        [ email ],
+        [email],
         (_, result) => {
           const places = [];
           for (const item of result.rows._array) {
-
             places.push(
               new Place(
                 item.id_name,
+                item.user,
                 item.description,
                 item.imageUri,
                 item.address,
                 item.latitude,
                 item.longitude,
-                item.user,
                 item.destination,
                 item.timestamp,
                 item.date
@@ -156,26 +153,24 @@ export function getPlacesSqlByUserEmail(email) {
   });
 }
 
-
 export function getPlacesSqlByIdName(idName) {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
         `SELECT * FROM PLACES WHERE id_name = ?`,
-        [ idName ],
+        [idName],
         (_, result) => {
           const places = [];
           for (const item of result.rows._array) {
-
             places.push(
               new Place(
                 item.id_name,
+                item.user,
                 item.description,
                 item.imageUri,
                 item.address,
                 item.latitude,
                 item.longitude,
-                item.user,
                 item.destination,
                 item.timestamp,
                 item.date

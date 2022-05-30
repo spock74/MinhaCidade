@@ -42,7 +42,7 @@ function PlaceForm({ onCreatePlace }) {
       .post("https://st11-3f424-default-rtdb.firebaseio.com/lugar.json", place)
       .then((response) => {
         // response.data.name como idName (id do objeto no firestore database) 
-        const place_ = {...place, idName: response.data.name, user: AuthCtx.email};
+        const place_ = {idName: response.data.name, user: AuthCtx.email, ...place, };
         //AsyncStorage.setItem(place_.idName, JSON.stringify(place_)).then((m) => {console.log("salvou no async storage: ", m)});
         onCreatePlace(place_);
         console.log("novo objeto: resp assync axios: ", AuthCtx);
@@ -50,15 +50,30 @@ function PlaceForm({ onCreatePlace }) {
       });
   }
 
+  // export class Place {
+  //   constructor(idNname, description, imageUri, address, latitude, longitude, user, destination) {
+  //     this.idNname = idNname || "__";
+  //     this.user = user;
+  //     this.description = description;
+  //     this.imageUri = imageUri;
+  //     this.address = address;
+  //     this.latitude = latitude;
+  //     this.longitude = longitude;
+  //     this.destination = destination;
+  //     this.timestamp = new Date().getTime().toString();
+  //     this.date = new Date().toISOString();
+  //   }
+  // }
 
   function savePlaceHandler() {
     const placeData = new Place(
+      "", 
+      "",
       enteredDescription,
       takenImage.uri,
       pickedLocation.address,
       pickedLocation.lat,
       pickedLocation.lon,
-      "user123",
       "Destino: TODO"
     );
 

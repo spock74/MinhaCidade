@@ -17,14 +17,11 @@ function PlacesList({ places }) {
   }
 
   return (
-    <>
-    <Button title="logout" onPress={()=>{AuthCtx.Logout()}} ></Button>
     <FlatList
       data={places}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.IdName}
       renderItem={({ item }) => <PlaceItem place={item} />}
       />
-    </>
   );
 }
 
