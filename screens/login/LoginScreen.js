@@ -4,6 +4,7 @@ import AuthContent from "../../components/Auth/AuthContent";
 import LoadingOverlay from "../../components/places/UI/LoadingOverlay";
 import { login } from "../auth/auth";
 import { AuthContext } from "../../store/auth-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function LoginScreen() {
   const [isAuthenticanting, setIsAuthenticating] = useState(false);
@@ -11,6 +12,7 @@ function LoginScreen() {
   //const email = authCtx.email;
 
   async function loginHandler({ email, password }) {
+    AsyncStorage.setItem("st_11_email", email);
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);

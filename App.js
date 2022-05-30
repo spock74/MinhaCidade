@@ -24,7 +24,7 @@ import { Colors } from "./constants/Colors";
 import { initSqlite } from "./util/database";
 
 import FullMap from "./components/places/FullMap";
-import { Alert } from "react-native-web";
+import { Alert } from "react-native";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -68,7 +68,7 @@ function DrawerNavigator() {
               name="home"
               color={color}
               size={size}
-              onPress={() => navigation.navigate("AddPlace")}
+              onPress={() => navigation.navigate("Welcome")}
             />
           ),
         }}
@@ -83,7 +83,7 @@ function DrawerNavigator() {
               name="list"
               color={color}
               size={size}
-              onPress={() => navigation.navigate("AddPlace")}
+              onPress={() => navigation.navigate("AllPlace")}
             />
           ),
         }}
@@ -92,9 +92,9 @@ function DrawerNavigator() {
         name="AddPlace"
         component={AddPlace}
         options={{
-          title: "Adicionar",
+          title: "Adicionar Local",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="add-circle" color={color} size={size} />
+            <Ionicons name="add-circle" color={color} size={size} onPress={() => navigation.navigate("AddPlace")}/>
           ),
         }}
       />
@@ -105,7 +105,7 @@ function DrawerNavigator() {
         options={{
           title: "Mapa",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="map" color={color} size={size} />
+            <Ionicons name="map" color={color} size={size} onPress={() => navigation.navigate("FullMap")}/>
           ),
         }}
       />
@@ -116,7 +116,7 @@ function DrawerNavigator() {
         options={{
           title: "Configurações",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="cog" color={color} size={size} />
+            <Ionicons name="cog" color={color} size={size} onPress={() => navigation.navigate("AllPlace")}/>
           ),
         }}
       />
@@ -168,7 +168,7 @@ function Root() {
     async function getToken() {
       const storedToken = await AsyncStorage.getItem("authToken_st11");
       if (storedToken) {
-        authCtx.Authenticate(storedToken);
+        authCtx.Authenticate(storedToken.idToken);
         console.log("storedToken appp ******", storedToken);
       }
       setIsLoading(false);

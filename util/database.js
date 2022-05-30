@@ -188,3 +188,21 @@ export function getPlacesSqlByIdName(idName) {
     });
   });
 }
+
+export function deleteTablePlaceSql() {
+  return new Promise((resolve, reject) => {
+    database.transaction((tx) => {
+      tx.executeSql(
+        `DROP TABLE IF EXISTS PLACES`,
+        [],
+        (_, result) => {
+          console.log("result from deleteTablePlaceSql: ", result);
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+}

@@ -1,6 +1,6 @@
 export class Place {
-  constructor(idNname, user, description, imageUri, address, latitude, longitude, destination) {
-    this.idNname = idNname || "__";
+  constructor(idName, user, description, imageUri, address, latitude, longitude, destination) {
+    this.idName = idName || "__";
     this.user = user;
     this.description = description;
     this.imageUri = imageUri;

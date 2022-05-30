@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  ScrollView,
-  Text,
-  View,
-  TextInput,
-} from "react-native";
+import { StyleSheet, ScrollView, Text, View, TextInput } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useCallback, useContext } from "react";
@@ -13,7 +7,7 @@ import { Place } from "../../models/Place";
 import ImagePickerCam from "./ImagePickerCam";
 import LocationPicker from "./LocationPicker";
 import Button from "./UI/Button";
-import { AuthContext } from "../../store/auth-context"; 
+import { AuthContext } from "../../store/auth-context";
 
 function PlaceForm({ onCreatePlace }) {
   const [enteredDescription, setEnteredDescription] = useState("");
@@ -21,8 +15,7 @@ function PlaceForm({ onCreatePlace }) {
   const [takenImage, setTakenImage] = useState({});
 
   const AuthCtx = useContext(AuthContext);
-  // const [email, setEmail] = useState(); AuthCtx.token.email;
-
+  const [email, setEmail] = useState(AuthCtx.email);
 
   function changeDescriptiontHandler(enteredText) {
     setEnteredDescription(enteredText);
@@ -32,7 +25,6 @@ function PlaceForm({ onCreatePlace }) {
     setTakenImage(image);
   }
 
-
   const onPickedLocationHandler = useCallback((pickedLocation) => {
     setPickedLocation(pickedLocation);
   }, []);
@@ -41,18 +33,20 @@ function PlaceForm({ onCreatePlace }) {
     return axios
       .post("https://st11-3f424-default-rtdb.firebaseio.com/lugar.json", place)
       .then((response) => {
-        // response.data.name como idName (id do objeto no firestore database) 
-        const place_ = {idName: response.data.name, user: AuthCtx.email, ...place, };
-        //AsyncStorage.setItem(place_.idName, JSON.stringify(place_)).then((m) => {console.log("salvou no async storage: ", m)});
-        onCreatePlace(place_);
-        console.log("novo objeto: resp assync axios: ", AuthCtx);
-        
+        AsyncStorage.getItem("em_st11").then((value) => {
+          console.log("email_st11 1111111111111111", value);
+          console.log("response 1111111111111111", response);
+          const place_ = { ...place, idName: response.data.name, user: value,  };
+          onCreatePlace(place_);
+          // console.log("novo objeto: resp assync axios: ", AuthCtx);
+          // console.log("9999999 novo objeto: resp assync axios 2: ", place_);
+        })
       });
   }
 
   // export class Place {
-  //   constructor(idNname, description, imageUri, address, latitude, longitude, user, destination) {
-  //     this.idNname = idNname || "__";
+  //   constructor(idName, description, imageUri, address, latitude, longitude, user, destination) {
+  //     this.idName = idName || "__";
   //     this.user = user;
   //     this.description = description;
   //     this.imageUri = imageUri;
@@ -67,7 +61,7 @@ function PlaceForm({ onCreatePlace }) {
 
   function savePlaceHandler() {
     const placeData = new Place(
-      "", 
+      "",
       "",
       enteredDescription,
       takenImage.uri,
@@ -98,7 +92,9 @@ function PlaceForm({ onCreatePlace }) {
           value={enteredDescription}
         />
       </View>
-      <Button style={styles.butonSave} onPress={savePlaceHandler}>Salvar</Button>
+      <Button style={styles.butonSave} onPress={savePlaceHandler}>
+        Salvar
+      </Button>
     </ScrollView>
   );
 }
@@ -117,7 +113,7 @@ const styles = StyleSheet.create({
     color: Colors.primary800,
     alignContent: "center",
     alignItems: "center",
-    justifyContent  : "center",
+    justifyContent: "center",
   },
   input: {
     marginVertical: 0,

@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 //signUp
@@ -14,9 +15,16 @@ async function authenticate(model, email, password) {
     returnSecureToken: true,
   });
 
+  AsyncStorage.setItem("em_st11", email)
+    .then(() => {
+      console.log("----- token -----", token);
+    })
+    .catch((e) => {
+      console.log("----- erro -----", e);
+    });
+
   const token = response.data;
 
-  console.log("----- token -----", token);
   return token;
 }
 
