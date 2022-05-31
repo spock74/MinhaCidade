@@ -28,6 +28,7 @@ function AuthContextProvider({ children }) {
     // remove idToken from local storage
     AsyncStorage.removeItem('authToken_st11');
     AsyncStorage.removeItem('email_st11');
+    AsyncStorage.removeItem('em_st11');
   }
 
   const value = {

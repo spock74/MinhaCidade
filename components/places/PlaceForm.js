@@ -30,23 +30,22 @@ function PlaceForm({ onCreatePlace }) {
   }, []);
 
   function onCreatePlaceSavePlaceInBackEnd(place) {
-    return axios
-      .post("https://st11-3f424-default-rtdb.firebaseio.com/lugar.json", place)
-      .then((response) => {
-        AsyncStorage.getItem("em_st11").then((value) => {
-          console.log("email_st11 1111111111111111", value);
-          console.log("response 1111111111111111", response);
-          const place_ = { ...place, idName: response.data.name, user: value,  };
+    AsyncStorage.getItem("em_st11").then((value) => {
+      const place_ = { ...place, idName: "--", user: value };
+      axios
+      .post(
+        "https://st11-3f424-default-rtdb.firebaseio.com/lugar.json",
+        place_
+        )
+        .then((response) => {
           onCreatePlace(place_);
-          // console.log("novo objeto: resp assync axios: ", AuthCtx);
-          // console.log("9999999 novo objeto: resp assync axios 2: ", place_);
-        })
-      });
+        });
+    });
   }
 
   // export class Place {
   //   constructor(idName, description, imageUri, address, latitude, longitude, user, destination) {
-  //     this.idName = idName || "__";
+  //     this.idName = "--";
   //     this.user = user;
   //     this.description = description;
   //     this.imageUri = imageUri;
