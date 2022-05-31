@@ -52,7 +52,7 @@ function PlaceForm({ onCreatePlace }) {
   //     this.address = address;
   //     this.latitude = latitude;
   //     this.longitude = longitude;
-  //     this.destination = destination;
+  //     this.destination = "--";
   //     this.timestamp = new Date().getTime().toString();
   //     this.date = new Date().toISOString();
   //   }
@@ -67,7 +67,7 @@ function PlaceForm({ onCreatePlace }) {
       pickedLocation.address,
       pickedLocation.lat,
       pickedLocation.lon,
-      "Destino: TODO"
+      "--",
     );
 
     // console.log(

@@ -101,9 +101,10 @@ const styles = StyleSheet.create({
   },
 
   imageCam: {
-    margin: 6,
     width: 360,
     height: 250,
+    padding: 4,
+    marginHorizontal: 8,
     borderRadius: 10,
     alignItems: "center",
     alignContent: "center",
@@ -113,19 +114,20 @@ const styles = StyleSheet.create({
   miniMap: {
     width: 360,
     height: 250,
-    margin: 4,
+    padding: 4,
+    marginHorizontal: 8,
     borderRadius: 10,
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "#CCC",
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
   },
 
   headerInfo: {
-    backgroundColor: ColorsRed.primary700,
+    backgroundColor: Colors.primary900,
     borderRadius: 10,
     color: "white",
     marginTop: 12,
-    marginHorizontal: 6,
+    marginHorizontal: 11,
     marginBottom: 4,
     padding: 6,
     elevation: 4,
