@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import { Colors } from "../constants/Colors";
 import { deleteTablePlaceSql } from "../util/database";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getAllLocations } from "../util/database";
 
 function Configurations() {
 
@@ -28,10 +29,18 @@ function Configurations() {
     console.log('Done clear deleteAsyncStorageHandler')
   }
 
+
+  function getAllLocationsHandler(){
+    getAllLocations().then((locs) => {
+      console.log("ffffff", locs);
+    });
+  }
+
   return (
     <View style={styles.constainer}>
-      <Button title="Delete Places SQL" onPress={deletePlacesHandler} />
-      <Button title="Delete AsyncStorage" onPress={deleteAsyncStorageHandler} />
+      <Button style={styles.button} title="Delete Places SQL" onPress={deletePlacesHandler} />
+      <Button style={styles.button} title="Delete AsyncStorage" onPress={deleteAsyncStorageHandler} />
+      <Button style={styles.button} title="get all loc" onPress={getAllLocationsHandler} />
     </View>
   );
 }
@@ -39,13 +48,14 @@ function Configurations() {
 const styles = StyleSheet.create({
   constainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   text: {
     fontSize: 20,
     fontWeight: "bold",
     color: Colors.primary800,
+  },
+  button: {
+    marginBottom: 10,
   },
 });
 

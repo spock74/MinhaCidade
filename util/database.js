@@ -206,3 +206,39 @@ export function deleteTablePlaceSql() {
     });
   });
 }
+
+export class Location {
+  constructor(latitude, longitude) {
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
+  return = () => {
+    return {
+      latitude: this.latitude,
+      longitude: this.longitude,
+    };
+  };
+}
+
+export function getAllLocations() {
+  return new Promise((resolve, reject) => {
+    database.transaction((tx) => {
+      tx.executeSql(
+        `SELECT latitude , longitude FROM PLACES`,
+        [],
+        (_, result) => {
+          const locations = [];
+          for (const item of result.rows._array) {
+            locations.push(new Location(item.latitude, item.longitude));
+          }
+          console.log("result from getAllLocations: ", locations);
+
+          resolve(result.rows._array);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+}

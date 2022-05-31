@@ -23,7 +23,7 @@ import { Colors } from "./constants/Colors";
 
 import { initSqlite } from "./util/database";
 
-import FullMap from "./components/places/FullMap";
+import AllPlacesMap from "./screens/AllPlacesMap";
 import { Alert } from "react-native";
 
 const Stack = createNativeStackNavigator();
@@ -100,12 +100,12 @@ function DrawerNavigator() {
       />
 
       <Drawer.Screen
-        name="FullMap"
-        component={FullMap}
+        name="AllPlacesMap"
+        component={AllPlacesMap}
         options={{
           title: "Mapa",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="map" color={color} size={size} onPress={() => navigation.navigate("FullMap")}/>
+            <Ionicons name="map" color={color} size={size} onPress={() => navigation.navigate("AllPlacesMap")}/>
           ),
         }}
       />
