@@ -1,10 +1,11 @@
-import { Image, Alert, View, StyleSheet, Text } from "react-native";
+import { Image, Alert, View, StyleSheet, Text, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import {
   useNavigation,
   useIsFocused,
   useRoute,
 } from "@react-navigation/native";
+import FullMap from "./FullMap";
 import OutLinedButton from "./OutLinedButton";
 import { Colors } from "../../constants/Colors";
 import {
@@ -21,7 +22,56 @@ function LocationPicker({ onPress, onPickedLocation }) {
   const navigation = useNavigation();
   const route = useRoute();
 
-  //-----
+  const [locationPermissionInformation, requestPermission] =
+    useForegroundPermissions();
+
+  //;; =========================
+  useEffect(() => {
+    // if (isFocused) {
+    async function veryPermissions() {
+      if (locationPermissionInformation.status === PermissionStatus.GRANTED) {
+        const permitionResponse = await requestPermission();
+        console.log("GRANTED permitionResponse", permitionResponse);
+
+        return permitionResponse.granted;
+      }
+
+      if (
+        locationPermissionInformation.status === PermissionStatus.UNDETERMINED
+      ) {
+        const permitionResponse = await requestPermission();
+        console.log("permitionResponse", permitionResponse);
+
+        return permitionResponse.granted;
+      }
+
+      if (locationPermissionInformation.status === PermissionStatus.DENIED) {
+        Alert.alert(
+          "Permissão insuficiente",
+          "Para usar essa localização é necessário conceder permissão ao app"
+        );
+        return false;
+      }
+    }
+
+    const granted = veryPermissions();
+    if (!granted) {
+      console.log("not granted");
+      return;
+    } else {
+      const location = getCurrentPositionAsync().then((location) => {
+        // console.log("location", location);
+        setPickedLocation({
+          lat: location.coords.latitude,
+          lon: location.coords.longitude,
+        });
+      });
+    }
+
+    //}
+  }, [isFocused]);
+  //;; =========================
+
   useEffect(() => {
     if (isFocused && route.params) {
       const mapPickedLocation = {
@@ -45,35 +95,6 @@ function LocationPicker({ onPress, onPickedLocation }) {
     handleLocation();
   }, [onPickedLocation, pickedLocation]);
 
-  const [locationPermissionInformation, requestPermission] =
-    useForegroundPermissions();
-
-  async function veryPermissions() {
-    if (locationPermissionInformation.status === PermissionStatus.GRANTED) {
-      const permitionResponse = await requestPermission();
-      //console.log("GRANTED permitionResponse", permitionResponse);
-
-      return permitionResponse.granted;
-    }
-
-    if (
-      locationPermissionInformation.status === PermissionStatus.UNDETERMINED
-    ) {
-      const permitionResponse = await requestPermission();
-      //console.log("permitionResponse", permitionResponse);
-
-      return permitionResponse.granted;
-    }
-
-    if (locationPermissionInformation.status === PermissionStatus.DENIED) {
-      Alert.alert(
-        "Permissão insuficiente",
-        "Para usar essa localização é necessário conceder permissão ao app"
-      );
-      return false;
-    }
-  }
-  
   async function getLocationHandler() {
     const hasPermission = await veryPermissions();
     if (!hasPermission) {
@@ -90,7 +111,6 @@ function LocationPicker({ onPress, onPickedLocation }) {
   function pickOnMapHandler() {
     navigation.navigate("FullMap", { loc: pickedLocation });
   }
-
 
   // gerenciar sqlite?
   function savePlaceHandler() {
@@ -112,7 +132,10 @@ function LocationPicker({ onPress, onPickedLocation }) {
 
   return (
     <View>
-      <View style={styles.mapPreview}>{locationPreview}</View>
+      <Pressable style={styles.mapPreview} onPress={pickOnMapHandler}>
+        {locationPreview}
+      </Pressable>
+      {/* <View style={styles.mapPreview} onPress={pickOnMapHandler}>{locationPreview}</View>
       <View style={styles.buttons}>
         <OutLinedButton
           style={styles.button}
@@ -135,7 +158,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
           size={28}
           onPress={onPress}
         ></OutLinedButton>
-      </View>
+      </View> */}
     </View>
   );
 }

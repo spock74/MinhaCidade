@@ -1,20 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //temp
 import { useEffect, useState } from "react";
 
 function WelcomeScreen() {
 
-  // const [user, setUser] = useState();
-  // useEffect(() => {
-  //   AsyncStorage.getItem("em_st11").then((value) => {
-  //     setUser(value);
-  //   });
-  // }, [])
+  const [email, setEmail] = useState();
+  useEffect(() => {
+    AsyncStorage.getItem("em_st11").then((value) => {
+      setEmail(value);
+    });
+  }, [])
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Bem-vindo {"--"}</Text>
+      <Text style={styles.title}>Bem-vindo {email || "--"}</Text>
     </View>
   );
 }

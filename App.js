@@ -1,5 +1,5 @@
 //import "react-native-gesture-handler";
-
+import { NativeBaseProvider, Box, extendTheme } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useContext, useState } from "react";
@@ -23,8 +23,9 @@ import { Colors } from "./constants/Colors";
 
 import { initSqlite } from "./util/database";
 
-import AllPlacesMap from "./screens/AllPlacesMap";
+import ExploreScreen from "./screens/ExploreScreen";
 import { Alert } from "react-native";
+import FullMap from "./components/places/FullMap";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -77,7 +78,7 @@ function DrawerNavigator() {
         name="AllPlaces"
         component={AllPlaces}
         options={{
-          title: "Locais",
+          title: "Lista de Locais",
           drawerIcon: ({ color, size }) => (
             <Ionicons
               name="list"
@@ -94,18 +95,45 @@ function DrawerNavigator() {
         options={{
           title: "Adicionar Local",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="add-circle" color={color} size={size} onPress={() => navigation.navigate("AddPlace")}/>
+            <Ionicons
+              name="add-circle"
+              color={color}
+              size={size}
+              onPress={() => navigation.navigate("AddPlace")}
+            />
           ),
         }}
       />
 
       <Drawer.Screen
-        name="AllPlacesMap"
-        component={AllPlacesMap}
+        name="FullMap"
+        component={FullMap}
+        visible={false}
         options={{
           title: "Mapa",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="map" color={color} size={size} onPress={() => navigation.navigate("AllPlacesMap")}/>
+            <Ionicons
+              name="map"
+              color={color}
+              size={size}
+              onPress={() => navigation.navigate("FullMap")}
+            />
+          ),
+        }}
+      />
+
+      <Drawer.Screen
+        name="Explorer"
+        component={ExploreScreen}
+        options={{
+          title: "Mapa Explorador",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons
+              name="map"
+              color={color}
+              size={size}
+              onPress={() => navigation.navigate("Explorer")}
+            />
           ),
         }}
       />
@@ -116,7 +144,12 @@ function DrawerNavigator() {
         options={{
           title: "Configurações",
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="cog" color={color} size={size} onPress={() => navigation.navigate("AllPlace")}/>
+            <Ionicons
+              name="cog"
+              color={color}
+              size={size}
+              onPress={() => navigation.navigate("AllPlace")}
+            />
           ),
         }}
       />
@@ -166,9 +199,9 @@ function Root() {
 
   useEffect(() => {
     async function getToken() {
-      const storedToken = await AsyncStorage.getItem("authToken_st11");
+      const storedToken = await AsyncStorage.getItem("authToken_st12");
       if (storedToken) {
-        authCtx.Authenticate(storedToken.idToken);
+        authCtx.Authenticate(storedToken);
         console.log("storedToken appp ******", storedToken);
       }
       setIsLoading(false);
@@ -177,12 +210,22 @@ function Root() {
     getToken();
   }, []);
 
-  if (isLoading) {
-    return <AppLoading />;
-  }
+  // if (isLoading) {
+  //   return <AppLoading />;
+  // }
 
   return <Navigation />;
 }
+
+
+const newColorTheme = {
+  brand: {
+    900: '#8287af',
+    800: '#7c83db',
+    700: '#b3bef6',
+  },
+};
+const theme = extendTheme({ colors: newColorTheme });
 
 export default function App() {
   const [dbInitialized, setDbInitialized] = useState(false);
@@ -198,17 +241,19 @@ export default function App() {
       });
   }, []);
 
-  if (!dbInitialized) {
-    return <AppLoading />;
-  }
+  // if (!dbInitialized) {
+  //   return <AppLoading />;
+  // }
 
   return (
-    <>
-      <StatusBar style="light" />
-      <AuthContextProvider>
-        <Root />
-      </AuthContextProvider>
-    </>
+    <NativeBaseProvider theme={theme}>
+      <>
+        <StatusBar style="light" />
+        <AuthContextProvider>
+          <Root />
+        </AuthContextProvider>
+      </>
+    </NativeBaseProvider>
   );
 }
 

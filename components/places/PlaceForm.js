@@ -1,21 +1,20 @@
+import { Button } from "native-base"
+
 import { StyleSheet, ScrollView, Text, View, TextInput } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback } from "react";
 import { Colors } from "../../constants/Colors";
 import { Place } from "../../models/Place";
 import ImagePickerCam from "./ImagePickerCam";
 import LocationPicker from "./LocationPicker";
-import Button from "./UI/Button";
-import { AuthContext } from "../../store/auth-context";
+// import Button from "./UI/Button";
 
 function PlaceForm({ onCreatePlace }) {
   const [enteredDescription, setEnteredDescription] = useState("");
   const [pickedLocation, setPickedLocation] = useState({});
   const [takenImage, setTakenImage] = useState({});
 
-  const AuthCtx = useContext(AuthContext);
-  const [email, setEmail] = useState(AuthCtx.email);
 
   function changeDescriptiontHandler(enteredText) {
     setEnteredDescription(enteredText);
@@ -30,12 +29,13 @@ function PlaceForm({ onCreatePlace }) {
   }, []);
 
   function onCreatePlaceSavePlaceInBackEnd(place) {
-    AsyncStorage.getItem("em_st11").then((value) => {
+    AsyncStorage.getItem("st_11_email").then((value) => {
       const place_ = { ...place, idName: "--", user: value };
+      console.log("----- place_ -----", place_);  
       axios
-      .post(
-        "https://st11-3f424-default-rtdb.firebaseio.com/lugar.json",
-        place_
+        .post(
+          "https://st11-3f424-default-rtdb.firebaseio.com/lugar.json",
+          place_
         )
         .then((response) => {
           onCreatePlace(place_);
@@ -67,7 +67,7 @@ function PlaceForm({ onCreatePlace }) {
       pickedLocation.address,
       pickedLocation.lat,
       pickedLocation.lon,
-      "--",
+      "--"
     );
 
     // console.log(
@@ -81,8 +81,8 @@ function PlaceForm({ onCreatePlace }) {
 
   return (
     <ScrollView style={styles.form}>
-      <ImagePickerCam onTakenImage={onTakenImageHandler} />
       <LocationPicker onPickedLocation={onPickedLocationHandler} />
+      <ImagePickerCam onTakenImage={onTakenImageHandler} />
       <View>
         <Text style={styles.label}>Descrição</Text>
         <TextInput
@@ -91,7 +91,7 @@ function PlaceForm({ onCreatePlace }) {
           value={enteredDescription}
         />
       </View>
-      <Button style={styles.butonSave} onPress={savePlaceHandler}>
+      <Button onPress={savePlaceHandler}>
         Salvar
       </Button>
     </ScrollView>

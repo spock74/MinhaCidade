@@ -22,6 +22,7 @@ function AllPlacesMap() {
     async function loadPlaces() {
       const places = await getAllPlacesSql();
       setLoadedPlaces(places);
+      console.log(">>>>>> do explorer --- ", loadedPlaces);
     }
     if (isFocused) {
       loadPlaces();
@@ -29,9 +30,9 @@ function AllPlacesMap() {
   }, [isFocused]);
 
   return (
-    <MapView style={styles.map} initialRegion={ initialPosition }>
+    <MapView style={styles.map} initialRegion={initialPosition}>
       <Marker
-        coordinate ={{
+        coordinate={{
           latitude: initialPosition.latitude,
           longitude: initialPosition.longitude,
         }}

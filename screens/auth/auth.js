@@ -17,7 +17,7 @@ async function authenticate(model, email, password) {
 
   AsyncStorage.setItem("em_st11", email)
     .then(() => {
-      console.log("----- token -----", token);
+      // console.log("----- token -----", token);
     })
     .catch((e) => {
       console.log("----- erro -----", e);
