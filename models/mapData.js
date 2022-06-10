@@ -1,4 +1,4 @@
-const Images = [
+export const Images = [
   {image: require('../assets/banners/vazamento.jpeg')},
   {image: require('../assets/banners/vazamento-2.jpeg')},
   {image: require('../assets/banners/vazamento-5.webp')},
@@ -14,54 +14,54 @@ export const markers = [
     },
     title: 'Vazamento na rua',
     description: '... algum detalhe sobre o local',
-    image: Images[0].image,
+    image: Images[4].image,
     rating: 3,
     reviews: 99,
   },
-  {
-    coordinate: {
-      latitude: -20.751111444678376,
-      longitude: -42.86684589086509,
-    },
-    title: 'Foco de Dengue',
-    description: '... algum detalhe sobre o local',
-    image: Images[1].image,
-    rating: 5,
-    reviews: 102,
-  },
-  {
-    coordinate: {
-      latitude: -20.75379081623074,
-      longitude: -42.887831517166035,
-    },
-    title: 'Uma anotação Sobre um Local',
-    description: '... algum detalhe sobre o local',
-    image: Images[2].image,
-    rating: 3,
-    reviews: 220,
-  },
-  {
-    coordinate: {
-      latitude: -20.763050885254362,
-      longitude: -42.8818544663478,
-    },
-    title: 'Uma anotação Sobre um Local',
-    description: '... algum detalhe sobre o local',
-    image: Images[3].image,
-    rating: 4,
-    reviews: 48,
-  },
-  {
-    coordinate: {
-      latitude: -20.764473874525567,
-      longitude: -42.88840496115598,
-    },
-    title: 'Uma anotação Sobre um Local',
-    description: '... algum detalhe sobre o local',
-    image: Images[4].image,
-    rating: 4,
-    reviews: 178,
-  },
+  // {
+  //   coordinate: {
+  //     latitude: -20.751111444678376,
+  //     longitude: -42.86684589086509,
+  //   },
+  //   title: 'Foco de Dengue',
+  //   description: '... algum detalhe sobre o local',
+  //   image: Images[1].image,
+  //   rating: 5,
+  //   reviews: 102,
+  // },
+  // {
+  //   coordinate: {
+  //     latitude: -20.75379081623074,
+  //     longitude: -42.887831517166035,
+  //   },
+  //   title: 'Uma anotação Sobre um Local',
+  //   description: '... algum detalhe sobre o local',
+  //   image: Images[2].image,
+  //   rating: 3,
+  //   reviews: 220,
+  // },
+  // {
+  //   coordinate: {
+  //     latitude: -20.763050885254362,
+  //     longitude: -42.8818544663478,
+  //   },
+  //   title: 'Uma anotação Sobre um Local',
+  //   description: '... algum detalhe sobre o local',
+  //   image: Images[3].image,
+  //   rating: 4,
+  //   reviews: 48,
+  // },
+  // {
+  //   coordinate: {
+  //     latitude: -20.764473874525567,
+  //     longitude: -42.88840496115598,
+  //   },
+  //   title: 'Uma anotação Sobre um Local',
+  //   description: '... algum detalhe sobre o local',
+  //   image: Images[4].image,
+  //   rating: 4,
+  //   reviews: 178,
+  //  },
 ];
 
 export const mapDarkStyle = [

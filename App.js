@@ -1,5 +1,8 @@
 //import "react-native-gesture-handler";
 import { NativeBaseProvider, Box, extendTheme } from "native-base";
+import { Entypo } from "@native-base/icons";
+import { FontAwesome } from "@native-base/icons";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useContext, useState } from "react";
@@ -10,6 +13,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import LoginScreen from "./screens/login/LoginScreen";
+// import NbLoginScreen from "./screens/login/NbLoginScreen";
 import SignupScreen from "./screens/login/SignupScreen";
 import WelcomeScreen from "./screens/login/WelcomeScreen";
 import Configurations from "./screens/Configurations";
@@ -23,7 +27,9 @@ import { Colors } from "./constants/Colors";
 
 import { initSqlite } from "./util/database";
 
-import ExploreScreen from "./screens/ExploreScreen";
+import ExplorerScreen from  "./screens/ExplorerScreen";
+import ExplorerScreen2 from "./screens/ExplorerScreen2";
+
 import { Alert } from "react-native";
 import FullMap from "./components/places/FullMap";
 
@@ -40,6 +46,7 @@ function AuthStack() {
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
+      {/* <Stack.Screen name="Login" component={NbLoginScreen} /> */}
       <Stack.Screen name="Signup" component={SignupScreen} />
     </Stack.Navigator>
   );
@@ -65,9 +72,9 @@ function DrawerNavigator() {
           ),
           title: "Início",
           drawerIcon: ({ color, size }) => (
-            <Ionicons
+            <FontAwesome
               name="home"
-              color={color}
+              color={"green"}
               size={size}
               onPress={() => navigation.navigate("Welcome")}
             />
@@ -80,9 +87,9 @@ function DrawerNavigator() {
         options={{
           title: "Lista de Locais",
           drawerIcon: ({ color, size }) => (
-            <Ionicons
+            <FontAwesome
               name="list"
-              color={color}
+              color={"red"}
               size={size}
               onPress={() => navigation.navigate("AllPlace")}
             />
@@ -95,9 +102,9 @@ function DrawerNavigator() {
         options={{
           title: "Adicionar Local",
           drawerIcon: ({ color, size }) => (
-            <Ionicons
-              name="add-circle"
-              color={color}
+            <FontAwesome
+              name="plus"
+              color={"red"}
               size={size}
               onPress={() => navigation.navigate("AddPlace")}
             />
@@ -112,9 +119,9 @@ function DrawerNavigator() {
         options={{
           title: "Mapa",
           drawerIcon: ({ color, size }) => (
-            <Ionicons
+            <FontAwesome
               name="map"
-              color={color}
+              color={"red"}
               size={size}
               onPress={() => navigation.navigate("FullMap")}
             />
@@ -124,15 +131,41 @@ function DrawerNavigator() {
 
       <Drawer.Screen
         name="Explorer"
-        component={ExploreScreen}
+        component={ExplorerScreen}
         options={{
           title: "Mapa Explorador",
+          drawerItemStyle: {
+            color: "white",
+            fonntWeight: "bold",
+            fontSize: 20,
+          },
           drawerIcon: ({ color, size }) => (
-            <Ionicons
-              name="map"
-              color={color}
+            <FontAwesome
+              name="map-marker"
+              color={"red"}
               size={size}
               onPress={() => navigation.navigate("Explorer")}
+            />
+          ),
+        }}
+      />
+
+      <Drawer.Screen
+        name="Explorer2"
+        component={ExplorerScreen2}
+        options={{
+          title: "Mapa Explorador Nao Mockado",
+          drawerItemStyle: {
+            color: "white",
+            fonntWeight: "bold",
+            fontSize: 20,
+          },
+          drawerIcon: ({ color, size }) => (
+            <FontAwesome
+              name="map-marker"
+              color={"red"}
+              size={size}
+              onPress={() => navigation.navigate("Explorer2")}
             />
           ),
         }}
@@ -144,9 +177,9 @@ function DrawerNavigator() {
         options={{
           title: "Configurações",
           drawerIcon: ({ color, size }) => (
-            <Ionicons
+            <FontAwesome
               name="cog"
-              color={color}
+              color={"red"}
               size={size}
               onPress={() => navigation.navigate("AllPlace")}
             />
@@ -202,7 +235,7 @@ function Root() {
       const storedToken = await AsyncStorage.getItem("authToken_st12");
       if (storedToken) {
         authCtx.Authenticate(storedToken);
-        console.log("storedToken appp ******", storedToken);
+        // console.log("storedToken appp ******", storedToken);
       }
       setIsLoading(false);
     }
@@ -217,12 +250,11 @@ function Root() {
   return <Navigation />;
 }
 
-
 const newColorTheme = {
   brand: {
-    900: '#8287af',
-    800: '#7c83db',
-    700: '#b3bef6',
+    900: "#8287af",
+    800: "#7c83db",
+    700: "#b3bef6",
   },
 };
 const theme = extendTheme({ colors: newColorTheme });

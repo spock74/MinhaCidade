@@ -29,7 +29,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
   useEffect(() => {
     // if (isFocused) {
     async function veryPermissions() {
-      if (locationPermissionInformation.status === PermissionStatus.GRANTED) {
+      if (locationPermissionInformation?.status !== PermissionStatus.GRANTED) {
         const permitionResponse = await requestPermission();
         console.log("GRANTED permitionResponse", permitionResponse);
 
@@ -37,7 +37,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
       }
 
       if (
-        locationPermissionInformation.status === PermissionStatus.UNDETERMINED
+        locationPermissionInformation?.status === PermissionStatus.UNDETERMINED
       ) {
         const permitionResponse = await requestPermission();
         console.log("permitionResponse", permitionResponse);
@@ -45,7 +45,7 @@ function LocationPicker({ onPress, onPickedLocation }) {
         return permitionResponse.granted;
       }
 
-      if (locationPermissionInformation.status === PermissionStatus.DENIED) {
+      if (locationPermissionInformation?.status === PermissionStatus.DENIED) {
         Alert.alert(
           "Permissão insuficiente",
           "Para usar essa localização é necessário conceder permissão ao app"

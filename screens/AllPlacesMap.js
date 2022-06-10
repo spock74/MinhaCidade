@@ -22,7 +22,7 @@ function AllPlacesMap() {
     async function loadPlaces() {
       const places = await getAllPlacesSql();
       setLoadedPlaces(places);
-      console.log(">>>>>> do explorer --- ", loadedPlaces);
+      console.log(">>>>>> do explorer 1 --- ", loadedPlaces);
     }
     if (isFocused) {
       loadPlaces();

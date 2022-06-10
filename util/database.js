@@ -105,7 +105,7 @@ export function getAllPlacesSql() {
               )
             );
           }
-          console.log("result from getAllPlacesSql: ", places);
+          // console.log("result from getAllPlacesSql --- : ", result.rows._array);
 
           resolve(result.rows._array);
         },

@@ -32,7 +32,7 @@ const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-function ExploreScreen() {
+function ExplorerScreen() {
   const [loadedPlaces, setLoadedPlaces] = useState([]);
   const isFocused = useIsFocused();
 
@@ -41,7 +41,7 @@ function ExploreScreen() {
       const places = await getAllPlacesSql();
       getAllPlacesSql().then((places) => {
         setLoadedPlaces(places);
-        console.log(">>>>>> do explorer --- ", loadedPlaces);
+        console.log(">>>>>> do explorer --- 1 ", loadedPlaces);
       });
     }
     if (isFocused) {
@@ -310,7 +310,7 @@ function ExploreScreen() {
   );
 }
 
-export default ExploreScreen;
+export default ExplorerScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,3 +1,5 @@
+import { Box } from "native-base";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -28,6 +30,7 @@ function AllPlaces({ route }) {
     async function loadPlaces() {
       const places = await getAllPlacesSql();
       setLoadedPlaces(places);
+      console.log("loadedPlaces: from allplaces component ", loadedPlaces);
     }
     if (isFocused) {
       loadPlaces();
