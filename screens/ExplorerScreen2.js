@@ -95,10 +95,10 @@ function ExplorerScreen2() {
       },
     ],
     region: {
-      latitude: -20.8633,
-      longitude: -42.8139,
-      latitudeDelta: 0.09864195044303443,
-      longitudeDelta: 0.090142817690068,
+      latitude: -20.763050885254362,
+      longitude: -42.8818544663478,
+      latitudeDelta:  0.09864195044303443 / 1.6,
+      longitudeDelta: 0.090142817690068 / 1.6,
     },
   };
 
@@ -161,6 +161,7 @@ function ExplorerScreen2() {
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
 
+  const multiplierfactor = 1 / 4;
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
@@ -180,8 +181,8 @@ function ExplorerScreen2() {
           _map.current.animateToRegion(
             {
               ...coordinate,
-              latitudeDelta: state.region.latitudeDelta,
-              longitudeDelta: state.region.longitudeDelta,
+              latitudeDelta: state.region.latitudeDelta * multiplierfactor,
+              longitudeDelta: state.region.longitudeDelta * multiplierfactor,
             },
             350
           );
@@ -199,7 +200,7 @@ function ExplorerScreen2() {
 
     const scale = mapAnimation.interpolate({
       inputRange,
-      outputRange: [1, 1.5, 1],
+      outputRange: [1, 1.7, 1],
       extrapolate: "clamp",
     });
 
@@ -282,6 +283,39 @@ function ExplorerScreen2() {
       >
         {state.categories.map((category, index) => (
           <TouchableOpacity
+            onPress={() => {
+              if (index === 0) {
+                setState((curState) => {
+                  curState.region = {
+                    latitude: -20.763050885254362,
+                    longitude: -42.8818544663478,
+                    latitudeDelta:  0.09864195044303443 / 1.6,
+                    longitudeDelta: 0.090142817690068 / 1.6,
+                  };
+
+                  clearTimeout(regionTimeout);
+
+                  const regionTimeout = setTimeout(() => {
+                    if (mapIndex !== index) {
+                      mapIndex = index;
+                      const { coordinate } = state.markers[index];
+                      _map.current.animateToRegion(
+                        {
+                          ...coordinate,
+                          latitudeDelta:
+                            state.region.latitudeDelta,
+                          longitudeDelta:
+                            state.region.longitudeDelta,
+                        },
+                        350
+                      );
+                    }
+                  }, 10);
+
+                  return curState;
+                });
+              }
+            }}
             key={index}
             style={[styles.chipsItem, { backgroundColor: category.color }]}
           >
