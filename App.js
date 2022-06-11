@@ -27,7 +27,6 @@ import { Colors } from "./constants/Colors";
 
 import { initSqlite } from "./util/database";
 
-import ExplorerScreen from  "./screens/ExplorerScreen";
 import ExplorerScreen2 from "./screens/ExplorerScreen2";
 
 import { Alert } from "react-native";
@@ -130,31 +129,10 @@ function DrawerNavigator() {
       />
 
       <Drawer.Screen
-        name="Explorer"
-        component={ExplorerScreen}
-        options={{
-          title: "Mapa Explorador",
-          drawerItemStyle: {
-            color: "white",
-            fonntWeight: "bold",
-            fontSize: 20,
-          },
-          drawerIcon: ({ color, size }) => (
-            <FontAwesome
-              name="map-marker"
-              color={"red"}
-              size={size}
-              onPress={() => navigation.navigate("Explorer")}
-            />
-          ),
-        }}
-      />
-
-      <Drawer.Screen
         name="Explorer2"
         component={ExplorerScreen2}
         options={{
-          title: "Mapa Explorador Nao Mockado",
+          title: "Mapa Explorador",
           drawerItemStyle: {
             color: "white",
             fonntWeight: "bold",

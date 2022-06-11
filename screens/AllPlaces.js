@@ -30,7 +30,7 @@ function AllPlaces({ route }) {
     async function loadPlaces() {
       const places = await getAllPlacesSql();
       setLoadedPlaces(places);
-      console.log("loadedPlaces: from allplaces component ", loadedPlaces);
+      // console.log("loadedPlaces: from allplaces component ", loadedPlaces);
     }
     if (isFocused) {
       loadPlaces();

@@ -1,10 +1,16 @@
+// export const Images = [
+//   {image: require('../assets/banners/vazamento.jpeg')},
+//   {image: require('../assets/banners/vazamento-2.jpeg')},
+//   {image: require('../assets/banners/vazamento-5.webp')},
+//   {image: require('../assets/banners/vazamento-3.jpeg')},
+//   {image: require('../assets/banners/vazamento-4.jpeg')},
+// ];
 export const Images = [
-  {image: require('../assets/banners/vazamento.jpeg')},
-  {image: require('../assets/banners/vazamento-2.jpeg')},
-  {image: require('../assets/banners/vazamento-5.webp')},
-  {image: require('../assets/banners/vazamento-3.jpeg')},
-  {image: require('../assets/banners/vazamento-4.jpeg')},
+  {image: 'file:///../assets/banners/vazamento-2.jpeg'},
 ];
+
+
+
 
 export const markers = [
   {
@@ -14,7 +20,7 @@ export const markers = [
     },
     title: 'Vazamento na rua',
     description: '... algum detalhe sobre o local',
-    image: Images[4].image,
+    image: null,
     rating: 3,
     reviews: 99,
   },

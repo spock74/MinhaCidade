@@ -8,7 +8,7 @@ function AddPlace({ navigation }) {
     await insertPlaceSql(place);
 
     // navigation.navigate("AllPlaces");
-    navigation.navigate("Explorer2");
+    navigation.navigate("Welcome");
   }
 
   return <PlaceForm onCreatePlace={createPlaceHandler} />;

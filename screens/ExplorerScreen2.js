@@ -22,12 +22,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import { getAllPlacesSql } from "../util/database";
 //******* */
-import {
-  Images,
-  markers,
-  mapDarkStyle,
-  mapStandardStyle,
-} from "../models/mapData";
+import { markers, mapDarkStyle, mapStandardStyle } from "../models/mapData";
 // import { Images, mapDarkStyle, mapStandardStyle } from "../models/mapData";
 //******* */
 import StarRating from "../components/StarRating";
@@ -40,13 +35,25 @@ const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 function ExplorerScreen2() {
-  console.log("primeiro marcador", markers);
+  // console.log("primeiro marcador", markers);
   // console.log("ExplorerScreen2 image 0", Images[0]);
 
   const [loadedPlaces, setLoadedPlaces] = useState([]);
-  // const [markers, setMarkers] = useState([]);
-  const isFocused = useIsFocused();
+  // const [markers, setMarkers] = useState([
+  //   {
+  //     coordinate: {
+  //       latitude: -20.745646384023,
+  //       longitude: -42.88733714762861,
+  //     },
+  //     title: "Vazamento na rua",
+  //     description: "... algum detalhe sobre o local",
+  //     image: Images[4].image,
+  //     rating: 3,
+  //     reviews: 99,
+  //   },
+  // ]);
 
+  const isFocused = useIsFocused();
 
   const theme = useTheme();
 
@@ -95,20 +102,18 @@ function ExplorerScreen2() {
     },
   };
 
-  const [mapState, setMapState] = useState(initialMapState);
-
   useEffect(() => {
     if (isFocused) {
       async function loadPlaces() {
         const places = await getAllPlacesSql();
         setLoadedPlaces(places);
-        constructdata(places, markers);
+        constructdata(places);
       }
       loadPlaces();
     }
     // getAllPlacesSql();
     // setLoadedPlaces((curPlaces) => [...curPlaces, route.params.place]);
-  }, [isFocused, markers]);
+  }, [isFocused]);
 
   // ------ markers ------
   //   {
@@ -123,47 +128,35 @@ function ExplorerScreen2() {
   //     reviews: 99,
   //   },
 
-  class Markers_ {
-    constructor(coordinate, title, description, image, rating, reviews) {
-      this.coordinate = coordinate;
-      this.title = title;
-      this.description = description;
-      this.image = image;
-      this.rating = rating;
-      this.reviews = reviews;
-    }
-  }
-
-
   const [state, setState] = React.useState(initialMapState);
 
-  let categories_ = [];
-  function constructdata(places_, markers) {
+  function constructdata(places_) {
     let markers_ = [];
-    places_.map((place) => {
+    let im = [];
+    places_.map((place, kk) => {
+      // console.log("place", place);
       let m_ = {};
       m_.coordinate = {
         latitude: place.latitude,
         longitude: place.longitude,
       };
-      m_.title = place.description;
+      m_.title = place.user;
       m_.description = place.description;
-      m_.image = Images[0].image;
-      m_.rating = 1111;
-      m_.reviews = 91119;
+      m_.image = place.imageUri;
+      m_.rating = 0;
+      m_.reviews = 0;
+      m_.date = place.date;
 
       markers_.push(m_);
     });
-    console.log("from markers_ LOADED places explore 2 m_ -----", markers);
+
     setState((curState) => {
       curState.markers = markers_;
       return curState;
     });
-      
-    // setMarkers(markers_);
+
+    // console.log("--- depos de setStates ---", state);
   }
-
-
 
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
@@ -332,41 +325,27 @@ function ExplorerScreen2() {
         {state.markers.map((marker, index) => (
           <View style={styles.card} key={index}>
             <Image
-              source={marker.image}
+              source={{ uri: marker.image }}
               style={styles.cardImage}
               resizeMode="cover"
             />
             <View style={styles.textContent}>
               <Text numberOfLines={1} style={styles.cardtitle}>
-                {marker.title}
+                Título: {"TODO"}
+              </Text>
+              <Text numberOfLines={1} style={styles.cardtitle}>
+                Tipo: {"TODO"}
+              </Text>
+              <Text numberOfLines={1} style={styles.cardtitle}>
+                Usuário: {marker.title}
+              </Text>
+              <Text numberOfLines={1} style={styles.cardtitle}>
+                Data: {new Date(marker.date).toLocaleDateString()}
               </Text>
               <StarRating ratings={marker.rating} reviews={marker.reviews} />
-              <Text numberOfLines={1} style={styles.cardDescription}>
+              {/* <Text numberOfLines={1} style={styles.cardDescription}>
                 {marker.description}
-              </Text>
-              <View style={styles.button}>
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={[
-                    styles.signIn,
-                    {
-                      borderColor: "#FF6347",
-                      borderWidth: 1,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.textSign,
-                      {
-                        color: "#FF6347",
-                      },
-                    ]}
-                  >
-                    DETALHES
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              </Text> */}
             </View>
           </View>
         ))}
