@@ -3,6 +3,10 @@ import { NativeBaseProvider, Box, extendTheme } from "native-base";
 import { FontAwesome } from "@native-base/icons";
 
 import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { getAuth, onAuthStateChanged, getCurrentUser } from 'firebase/auth';
+
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useContext, useState } from "react";
@@ -30,17 +34,7 @@ import ExplorerScreen from "./screens/ExplorerScreen";
 import { Alert } from "react-native";
 import FullMap from "./components/places/FullMap";
 
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyDowBloT_HEX4Ul6-7GTKXcLwRNg23NZo8",
-  authDomain: "project-id.firebaseapp.com",
-  databaseURL: "https://project-id.firebaseio.com",
-  projectId: "st11-3f424",
-  storageBucket: "project-id.appspot.com",
-  messagingSenderId: "sender-id",
-  appId: "app-id",
-  measurementId: "G-measurement-id",
-};
+
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
