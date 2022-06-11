@@ -1,8 +1,8 @@
 //import "react-native-gesture-handler";
 import { NativeBaseProvider, Box, extendTheme } from "native-base";
-import { Entypo } from "@native-base/icons";
 import { FontAwesome } from "@native-base/icons";
 
+import { initializeApp } from "firebase/app";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useContext, useState } from "react";
@@ -11,7 +11,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
-import AppLoading from "expo-app-loading";
 import LoginScreen from "./screens/login/LoginScreen";
 // import NbLoginScreen from "./screens/login/NbLoginScreen";
 import SignupScreen from "./screens/login/SignupScreen";
@@ -21,7 +20,6 @@ import Configurations from "./screens/Configurations";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
-import { Ionicons } from "@expo/vector-icons";
 import IconButton from "./components/places/UI/IconButton";
 import { Colors } from "./constants/Colors";
 
@@ -31,6 +29,18 @@ import ExplorerScreen from "./screens/ExplorerScreen";
 
 import { Alert } from "react-native";
 import FullMap from "./components/places/FullMap";
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDowBloT_HEX4Ul6-7GTKXcLwRNg23NZo8",
+  authDomain: "project-id.firebaseapp.com",
+  databaseURL: "https://project-id.firebaseio.com",
+  projectId: "st11-3f424",
+  storageBucket: "project-id.appspot.com",
+  messagingSenderId: "sender-id",
+  appId: "app-id",
+  measurementId: "G-measurement-id",
+};
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -56,7 +66,13 @@ function DrawerNavigator() {
   const navigation = useNavigation();
 
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: "white",
+        contentStyle: { backgroundColor: Colors.primary100 },
+      }}
+    >
       <Drawer.Screen
         name="Welcome"
         component={WelcomeScreen}
@@ -238,6 +254,10 @@ const newColorTheme = {
 const theme = extendTheme({ colors: newColorTheme });
 
 export default function App() {
+
+  // firebase initializeApp 
+  // initializeApp(firebaseConfig);
+
   const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {

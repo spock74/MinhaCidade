@@ -26,13 +26,18 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.spock74.st12",
-      "googleServicesFile": "google-services.json",
+      "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBTDhzNNs6-Bc3JNAcDJeCJpuAIxtKNKtc"
         }
       }
     },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/perf",
+      "@react-native-firebase/crashlytics"
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
     }
