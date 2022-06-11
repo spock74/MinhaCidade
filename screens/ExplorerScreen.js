@@ -34,9 +34,9 @@ const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-function ExplorerScreen2() {
+function ExplorerScreen() {
   // console.log("primeiro marcador", markers);
-  // console.log("ExplorerScreen2 image 0", Images[0]);
+  // console.log("ExplorerScreen image 0", Images[0]);
 
   const [loadedPlaces, setLoadedPlaces] = useState([]);
   // const [markers, setMarkers] = useState([
@@ -97,7 +97,7 @@ function ExplorerScreen2() {
     region: {
       latitude: -20.763050885254362,
       longitude: -42.8818544663478,
-      latitudeDelta:  0.09864195044303443 / 1.6,
+      latitudeDelta: 0.09864195044303443 / 1.6,
       longitudeDelta: 0.090142817690068 / 1.6,
     },
   };
@@ -184,7 +184,7 @@ function ExplorerScreen2() {
               latitudeDelta: state.region.latitudeDelta * multiplierfactor,
               longitudeDelta: state.region.longitudeDelta * multiplierfactor,
             },
-            350
+            1500
           );
         }
       }, 10);
@@ -289,7 +289,7 @@ function ExplorerScreen2() {
                   curState.region = {
                     latitude: -20.763050885254362,
                     longitude: -42.8818544663478,
-                    latitudeDelta:  0.09864195044303443 / 1.6,
+                    latitudeDelta: 0.09864195044303443 / 1.6,
                     longitudeDelta: 0.090142817690068 / 1.6,
                   };
 
@@ -302,12 +302,10 @@ function ExplorerScreen2() {
                       _map.current.animateToRegion(
                         {
                           ...coordinate,
-                          latitudeDelta:
-                            state.region.latitudeDelta,
-                          longitudeDelta:
-                            state.region.longitudeDelta,
+                          latitudeDelta: state.region.latitudeDelta,
+                          longitudeDelta: state.region.longitudeDelta,
                         },
-                        350
+                        1500
                       );
                     }
                   }, 10);
@@ -388,7 +386,7 @@ function ExplorerScreen2() {
   );
 }
 
-export default ExplorerScreen2;
+export default ExplorerScreen;
 
 const styles = StyleSheet.create({
   container: {

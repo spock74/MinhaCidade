@@ -27,7 +27,7 @@ import { Colors } from "./constants/Colors";
 
 import { initSqlite } from "./util/database";
 
-import ExplorerScreen2 from "./screens/ExplorerScreen2";
+import ExplorerScreen from "./screens/ExplorerScreen";
 
 import { Alert } from "react-native";
 import FullMap from "./components/places/FullMap";
@@ -129,8 +129,8 @@ function DrawerNavigator() {
       />
 
       <Drawer.Screen
-        name="Explorer2"
-        component={ExplorerScreen2}
+        name="Explorer"
+        component={ExplorerScreen}
         options={{
           title: "Mapa Explorador",
           drawerItemStyle: {
@@ -143,7 +143,7 @@ function DrawerNavigator() {
               name="map-marker"
               color={"red"}
               size={size}
-              onPress={() => navigation.navigate("Explorer2")}
+              onPress={() => navigation.navigate("Explorer")}
             />
           ),
         }}

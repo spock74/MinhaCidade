@@ -1,9 +1,8 @@
 import PlaceForm from "../components/places/PlaceForm";
-import ExplorerScreen2 from "./ExplorerScreen2";
+import ExplorerScreen from "./ExplorerScreen";
 import { insertPlaceSql } from "../util/database";
 
 function AddPlace({ navigation }) {
-
   async function createPlaceHandler(place) {
     await insertPlaceSql(place);
 
@@ -14,7 +13,4 @@ function AddPlace({ navigation }) {
   return <PlaceForm onCreatePlace={createPlaceHandler} />;
 }
 
-
 export default AddPlace;
-
-
