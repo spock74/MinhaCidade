@@ -1,11 +1,13 @@
 //import "react-native-gesture-handler";
 import { NativeBaseProvider, Box, extendTheme } from "native-base";
-import { FontAwesome } from "@native-base/icons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+// import { initializeApp } from "firebase/app";
+// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
+// import { getDatabase, ref, onValue, set } from 'firebase/database';
+// import { getDatabase, ref, onValue, set } from 'firebase/database';
+// import { getAuth, onAuthStateChanged, getCurrentUser } from 'firebase/auth';
 
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set } from 'firebase/database';
-import { getAuth, onAuthStateChanged, getCurrentUser } from 'firebase/auth';
-
+import PouchDB from "pouchdb-react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
@@ -142,7 +144,7 @@ function DrawerNavigator() {
         name="Explorer"
         component={ExplorerScreen}
         options={{
-          title: "Mapa Explorador",
+          title: "Mapa E",
           drawerItemStyle: {
             color: "white",
             fonntWeight: "bold",
@@ -249,21 +251,46 @@ const theme = extendTheme({ colors: newColorTheme });
 
 export default function App() {
 
-  // firebase initializeApp 
-  // initializeApp(firebaseConfig);
-
+  
+  
+  
   const [dbInitialized, setDbInitialized] = useState(false);
-
   useEffect(() => {
     initSqlite()
-      .then(() => {
-        setDbInitialized(true);
-      })
-      .catch((err) => {
-        console.log("Error initializing database: ", err);
-        Alert.alert("Erro", "Erro ao inicializar banco de dados", err);
-      });
+    .then(() => {
+      setDbInitialized(true);
+      console.log("db initialized");
+    })
+    .catch((err) => {
+      console.log("Error initializing database: ", err);
+      Alert.alert("Erro", "Erro ao inicializar banco de dados", err);
+    });
   }, []);
+  
+  
+  
+  // function storeHighScore(userId, score) {
+  //   const db = getDatabase();
+  //   const reference = ref(db, 'users/' + userId);
+  //   set(reference, {
+  //     highscore: score,
+  //   });
+  // }
+  // const [fireDbresult, setFireDbresult] = useState(false);
+  // useEffect(() => {
+  //   initializeApp();
+    
+  //  function setupHighscoreListener(userId) {const db = getDatabase();
+  //     const reference = ref(db, 'users/' + userId);
+  //     onValue(reference, (snapshot) => {
+  //       const highscore = snapshot.val().highscore;
+  //       setFireDbresult(highscore);
+  //       console.log("New high score: " + fireDbresult);
+  //     });
+  //   }
+  //   setupHighscoreListener(123234);
+
+  // }, []);
 
   // if (!dbInitialized) {
   //   return <AppLoading />;

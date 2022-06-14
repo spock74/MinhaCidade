@@ -1,14 +1,17 @@
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Colors } from "../constants/Colors";
-import { deleteTablePlaceSql } from "../util/database";
+import { deleteTablePlaceSql, deleteDatabasePlaceSql } from "../util/database";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAllLocations } from "../util/database";
 
-function Configurations() {
+import PouchDB from "pouchdb-react-native";
+import { db2 } from "../util/database";
 
-  deletePlacesHandler = () => {
+function Configurations() {
+  const deletePlacesHandler = () => {
     const deleteTablePlace = async () => {
       try {
+        //deleteDatabasePlaceSql();
         await deleteTablePlaceSql();
         console.log("deletou tabela");
       } catch (error) {
@@ -18,29 +21,67 @@ function Configurations() {
     deleteTablePlace();
   };
 
-  deleteAsyncStorageHandler = async () => {
+  const deleteAsyncStorageHandler = async () => {
     try {
-      await AsyncStorage.clear()
-    } catch(e) {
-      console.log('ERRO clear deleteAsyncStorageHandler', e)
+      await AsyncStorage.clear();
+    } catch (e) {
+      console.log("ERRO clear deleteAsyncStorageHandler", e);
       // clear error
     }
-  
-    console.log('Done clear deleteAsyncStorageHandler')
-  }
 
+    console.log("Done clear deleteAsyncStorageHandler");
+  };
 
-  function getAllLocationsHandler(){
+  function getAllLocationsHandler() {
     getAllLocations().then((locs) => {
       console.log("ffffff", locs);
     });
   }
 
+  function saveDocToPouch() {
+    const doc = {
+      _id: "doc1",
+      title: "My first PouchDB document",
+      body: "This is the body of my first PouchDB document",
+    };
+    db2.put(doc).then(function (response) {
+      console.log(response);
+    });
+  }
+
+  function getDocFromPouch() {
+    db2.allDocs().then((doc) => {
+      console.log(doc.rows);
+    });
+  }
+
   return (
     <View style={styles.constainer}>
-      <Button style={styles.button} title="Delete Places SQL" onPress={deletePlacesHandler} />
-      <Button style={styles.button} title="Delete AsyncStorage" onPress={deleteAsyncStorageHandler} />
-      <Button style={styles.button} title="get all loc" onPress={getAllLocationsHandler} />
+      <Button
+        style={styles.button}
+        title="Delete Places SQL"
+        onPress={deletePlacesHandler}
+      />
+      <Button
+        style={styles.button}
+        title="Delete AsyncStorage"
+        onPress={deleteAsyncStorageHandler}
+      />
+      <Button
+        style={styles.button}
+        title="get all loc"
+        onPress={getAllLocationsHandler}
+      />
+      <Button
+        style={styles.button}
+        title="saveDocToPouc"
+        onPress={saveDocToPouch}
+      />
+      <Button
+        style={styles.button}
+        title="getDocFromPouch"
+        onPress={getDocFromPouch}
+      />
     </View>
   );
 }

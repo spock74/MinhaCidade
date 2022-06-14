@@ -16,10 +16,15 @@ function PlacesList({ places }) {
     );
   }
 
+places.map(place => {
+  console.log(place.idName);
+  ({address, date, description, destination, image, latitude, longitude, rating, reviews, timestamp, title, user,} = places)  
+});
+
   return (
     <FlatList
       data={places}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.timestamp}
       renderItem={({ item }) => <PlaceItem place={item} />}
       />
   );

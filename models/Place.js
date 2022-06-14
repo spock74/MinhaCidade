@@ -1,9 +1,22 @@
 export class Place {
-  constructor(idName, user, description, imageUri, address, latitude, longitude, destination) {
-    this.idName = idName,
-    this.user = user,
+  constructor(
+    title,
+    rating,
+    user,
+    reviews,
+    description,
+    image,
+    address,
+    latitude,
+    longitude,
+    destination
+  ) {
+    this.title = title;
+    this.rating = rating;
+    this.user = user;
+    this.reviews = reviews;
     this.description = description;
-    this.imageUri = imageUri;
+    this.image = image;
     this.address = address;
     this.latitude = latitude;
     this.longitude = longitude;

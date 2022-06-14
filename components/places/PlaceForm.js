@@ -1,7 +1,11 @@
-import { Button } from "native-base"
+import { Button } from "native-base";
 
 import { StyleSheet, ScrollView, Text, View, TextInput } from "react-native";
 import axios from "axios";
+
+import PouchDB from "pouchdb-react-native";
+import { db2 } from "../../util/database";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useCallback } from "react";
 import { Colors } from "../../constants/Colors";
@@ -14,7 +18,6 @@ function PlaceForm({ onCreatePlace }) {
   const [enteredDescription, setEnteredDescription] = useState("");
   const [pickedLocation, setPickedLocation] = useState({});
   const [takenImage, setTakenImage] = useState({});
-
 
   function changeDescriptiontHandler(enteredText) {
     setEnteredDescription(enteredText);
@@ -30,44 +33,64 @@ function PlaceForm({ onCreatePlace }) {
 
   function onCreatePlaceSavePlaceInBackEnd(place) {
     AsyncStorage.getItem("st_11_email").then((value) => {
-      const place_ = { ...place, idName: "--", user: value };
-      console.log("----- place_ -----", place_);  
+      place.user = value;
+      console.log("----- place>>> -----", place);
       axios
         .post(
           "https://st11-3f424-default-rtdb.firebaseio.com/lugar.json",
-          place_
+          place
         )
         .then((response) => {
-          onCreatePlace(place_);
+          console.log(response.data.name);
+          place.idName = response.data.name;
+          onCreatePlace(place);
         });
     });
   }
 
   // export class Place {
-  //   constructor(idName, description, imageUri, address, latitude, longitude, user, destination) {
-  //     this.idName = "--";
-  //     this.user = user;
+  //   constructor(title, rating, user, reviews, description, image, address, latitude, longitude, destination) {
+  //     this.title = title,
+  //     this.rating = rating,
+  //     this.user = user,
+  //     this.reviews = reviews,
   //     this.description = description;
-  //     this.imageUri = imageUri;
+  //     this.image = image;
   //     this.address = address;
   //     this.latitude = latitude;
   //     this.longitude = longitude;
-  //     this.destination = "--";
+  //     this.destination = destination;
   //     this.timestamp = new Date().getTime().toString();
   //     this.date = new Date().toISOString();
   //   }
   // }
 
+  // title,
+  // rating,
+  // user,
+  // reviews,
+  // description,
+  // image,
+  // address,
+  // latitude,
+  // longitude,
+  // destination,
+  // timestamp,
+  // date,
   function savePlaceHandler() {
     const placeData = new Place(
-      "",
-      "",
+      "Titulo",
+      "Rating",
+      "user",
+      "Reviews",
       enteredDescription,
       takenImage.uri,
       pickedLocation.address,
       pickedLocation.lat,
       pickedLocation.lon,
-      "--"
+      "Destination",
+      new Date().getTime().toString(),
+      new Date().toISOString()
     );
 
     // console.log(
@@ -91,9 +114,7 @@ function PlaceForm({ onCreatePlace }) {
           value={enteredDescription}
         />
       </View>
-      <Button onPress={savePlaceHandler}>
-        Salvar
-      </Button>
+      <Button onPress={savePlaceHandler}>Salvar</Button>
     </ScrollView>
   );
 }

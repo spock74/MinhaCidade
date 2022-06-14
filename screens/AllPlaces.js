@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import PlacesList from "../components/places/PlacesList";
 import { getAllPlacesSql } from "../util/database";
+import { db2 } from "../util/database";
 
 function AllPlaces({ route }) {
   const [loadedPlaces, setLoadedPlaces] = useState([]);
@@ -27,17 +28,14 @@ function AllPlaces({ route }) {
   };
 
   useEffect(() => {
-    async function loadPlaces() {
-      const places = await getAllPlacesSql();
-      setLoadedPlaces(places);
-      // console.log("loadedPlaces: from allplaces component ", loadedPlaces);
-    }
-    if (isFocused) {
-      loadPlaces();
-    }
-    // getAllPlacesSql();
-    // setLoadedPlaces((curPlaces) => [...curPlaces, route.params.place]);
-  }, [isFocused]);
+      db2
+        .allDocs({ include_docs: true })
+        .then((result) => {
+          // console.log("result db2 allDocs: ", result);
+          setLoadedPlaces(result.rows.map((row) => row.doc));
+        })
+        .catch((err) => {console.log("err db2 allDocs: ", err);});
+    }, []);
 
   return <PlacesList places={loadedPlaces} />;
 }

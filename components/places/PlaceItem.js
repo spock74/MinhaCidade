@@ -37,16 +37,16 @@ function PlaceItem({ place, onSelect }) {
         <View style={styles.viewLinhaImagem}>
           <ScrollView horizontal={true}>
             <Pressable onPress={f}>
-              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
+              <Image style={styles.imageCam} source={{ uri: place.image }} />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
-              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
+              <Image style={styles.imageCam} source={{ uri: place.image }} />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
-              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
+              <Image style={styles.imageCam} source={{ uri: place.image }} />
             </Pressable>
             <Pressable style={styles.imageCam} onPress={f}>
-              <Image style={styles.imageCam} source={{ uri: place.imageUri }} />
+              <Image style={styles.imageCam} source={{ uri: place.image }} />
             </Pressable>
           </ScrollView>
           <ScrollView horizontal={true}>

@@ -19,7 +19,7 @@ export const markers = [
       longitude: -42.88733714762861,
     },
     title: 'Vazamento na rua',
-    description: '... algum detalhe sobre o local',
+    description: 'Marco Zero',
     image: null,
     rating: 3,
     reviews: 99,

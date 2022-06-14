@@ -21,8 +21,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { getAllPlacesSql } from "../util/database";
+import { db2 } from "../util/database";
 //******* */
-import { markers, mapDarkStyle, mapStandardStyle } from "../models/mapData";
+import { mapDarkStyle, mapStandardStyle } from "../models/mapData";
 // import { Images, mapDarkStyle, mapStandardStyle } from "../models/mapData";
 //******* */
 import StarRating from "../components/StarRating";
@@ -35,128 +36,124 @@ const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 function ExplorerScreen() {
-  // console.log("primeiro marcador", markers);
-  // console.log("ExplorerScreen image 0", Images[0]);
-
-  const [loadedPlaces, setLoadedPlaces] = useState([]);
-  // const [markers, setMarkers] = useState([
-  //   {
-  //     coordinate: {
-  //       latitude: -20.745646384023,
-  //       longitude: -42.88733714762861,
-  //     },
-  //     title: "Vazamento na rua",
-  //     description: "... algum detalhe sobre o local",
-  //     image: Images[4].image,
-  //     rating: 3,
-  //     reviews: 99,
-  //   },
-  // ]);
-
   const isFocused = useIsFocused();
-
   const theme = useTheme();
 
-  const initialMapState = {
-    markers,
-    categories: [
-      {
-        name: "Água e Esgotos",
-        icon: <Ionicons style={styles.chipsIcon} name="ios-water" size={18} />,
-        color: "#FF6347",
-      },
-      {
-        name: "Vias Públicas",
-        icon: <FontAwesome name="road" style={styles.chipsIcon} size={18} />,
-        color: "blue",
-      },
-      {
-        name: "Focos de Dengue",
-        icon: (
-          <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />
-        ),
-        color: "green",
-      },
-      {
-        name: "Escolas",
-        icon: (
-          <MaterialCommunityIcons
-            name="food"
-            style={styles.chipsIcon}
-            size={18}
-          />
-        ),
-        color: "red",
-      },
-      {
-        name: "Saúde",
-        icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
-        color: "orange",
-      },
-    ],
-    region: {
-      latitude: -20.763050885254362,
-      longitude: -42.8818544663478,
-      latitudeDelta: 0.09864195044303443 / 1.6,
-      longitudeDelta: 0.090142817690068 / 1.6,
+  const categories = [
+    {
+      name: "Água e Esgotos",
+      icon: <Ionicons style={styles.chipsIcon} name="ios-water" size={18} />,
+      color: "#FF6347",
     },
-  };
+    {
+      name: "Vias Públicas",
+      icon: <FontAwesome name="road" style={styles.chipsIcon} size={18} />,
+      color: "blue",
+    },
+    {
+      name: "Focos de Dengue",
+      icon: (
+        <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />
+      ),
+      color: "green",
+    },
+    {
+      name: "Escolas",
+      icon: (
+        <MaterialCommunityIcons
+          name="food"
+          style={styles.chipsIcon}
+          size={18}
+        />
+      ),
+      color: "red",
+    },
+    {
+      name: "Saúde",
+      icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
+      color: "orange",
+    },
+  ];
+
+  const [region, setRegion] = useState({
+    latitude: -20.763050885254362,
+    longitude: -42.8818544663478,
+    latitudeDelta: 0.09864195044303443 / 1.6,
+    longitudeDelta: 0.090142817690068 / 1.6,
+  });
+
+  // ---- class place ===='
+  //     this.idName = idName,
+  //     this.title = title,
+  //     this.rating = rating,
+  //     this.user = user,
+  //     this.reviews = reviews,
+  //     this.description = description;
+  //     this.image = image;
+  //     this.address = address;
+  //     this.latitude = latitude;
+  //     this.longitude = longitude;
+  //     this.destination = destination;
+  //     this.timestamp = new Date().getTime().toString();
+  //     this.date = new Date().toISOString();
+  // const [markers, setMakers] = useState(markers);
+  const [markers, setMarkers] = useState([
+    {
+      coordinate: {
+        latitude: -20.745646384023,
+        longitude: -42.88733714762861,
+      },
+      title: "Vazamento na rua",
+      description: "Marco Zero",
+      image: null,
+      rating: 3,
+      reviews: 99,
+      address: "--",
+      _id: "",
+      timestamp: null,
+      user: "",
+      destination: "",
+      date: "",
+    },
+  ]);
+
+  function constructdata() {}
 
   useEffect(() => {
-    if (isFocused) {
-      async function loadPlaces() {
-        const places = await getAllPlacesSql();
-        setLoadedPlaces(places);
-        constructdata(places);
-      }
-      loadPlaces();
-    }
-    // getAllPlacesSql();
-    // setLoadedPlaces((curPlaces) => [...curPlaces, route.params.place]);
-  }, [isFocused]);
+    // if (isFocused) {
+    db2
+      .allDocs({ include_docs: true })
+      .then((result) => {
+        // setLoadedPlaces(result.rows.map((row) => row.doc));
+        let markers_ = [];
+        result.rows.map((place, kk) => {
+          console.log("result db2 allDocs kk place: " + kk, place);
+          let m_ = {};
+          m_.title = place.doc.title;
+          m_.description = place.doc.description;
+          m_.image = place.doc.image;
+          m_.rating = Number(place.doc.rating);
+          m_.reviews = Number(place.doc.reviews);
+          m_.address = place.doc.address;
+          // //: result.place.//:;
+          m_.timestamp = place.doc.timestamp;
+          m_.user = place.doc.user;
+          m_.destination = place.doc.destination;
+          m_.date = place.doc.date;
+          m_.coordinate = {
+            latitude: Number(place.doc.latitude),
+            longitude: Number(place.doc.longitude),
+          };
+          markers_.push(m_);
+        });
 
-  // ------ markers ------
-  //   {
-  //     coordinate: {
-  //       latitude: -20.745646384023,
-  //       longitude: -42.88733714762861,
-  //     },
-  //     title: 'Vazamento na rua',
-  //     description: '... algum detalhe sobre o local',
-  //     image: Images[0].image,
-  //     rating: 3,
-  //     reviews: 99,
-  //   },
-
-  const [state, setState] = React.useState(initialMapState);
-
-  function constructdata(places_) {
-    let markers_ = [];
-    let im = [];
-    places_.map((place, kk) => {
-      // console.log("place", place);
-      let m_ = {};
-      m_.coordinate = {
-        latitude: place.latitude,
-        longitude: place.longitude,
-      };
-      m_.title = place.user;
-      m_.description = place.description;
-      m_.image = place.imageUri;
-      m_.rating = 0;
-      m_.reviews = 0;
-      m_.date = place.date;
-
-      markers_.push(m_);
-    });
-
-    setState((curState) => {
-      curState.markers = markers_;
-      return curState;
-    });
-
-    // console.log("--- depos de setStates ---", state);
-  }
+        setMarkers(markers_);
+      })
+      .catch((err) => {
+        console.log("err db2 allDocs: ", err);
+      });
+    // }
+  }, []);
 
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
@@ -165,8 +162,8 @@ function ExplorerScreen() {
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= state.markers.length) {
-        index = state.markers.length - 1;
+      if (index >= markers.length) {
+        index = markers.length - 1;
       }
       if (index <= 0) {
         index = 0;
@@ -177,12 +174,12 @@ function ExplorerScreen() {
       const regionTimeout = setTimeout(() => {
         if (mapIndex !== index) {
           mapIndex = index;
-          const { coordinate } = state.markers[index];
+          const { coordinate } = markers[index];
           _map.current.animateToRegion(
             {
               ...coordinate,
-              latitudeDelta: state.region.latitudeDelta * multiplierfactor,
-              longitudeDelta: state.region.longitudeDelta * multiplierfactor,
+              latitudeDelta: region.latitudeDelta * multiplierfactor,
+              longitudeDelta: region.longitudeDelta * multiplierfactor,
             },
             1500
           );
@@ -191,7 +188,7 @@ function ExplorerScreen() {
     });
   });
 
-  const interpolations = state.markers.map((marker, index) => {
+  const interpolations = markers.map((marker, index) => {
     const inputRange = [
       (index - 1) * CARD_WIDTH,
       index * CARD_WIDTH,
@@ -225,12 +222,12 @@ function ExplorerScreen() {
     <View style={styles.container}>
       <MapView
         ref={_map}
-        initialRegion={state.region}
+        initialRegion={region}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
         customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
       >
-        {state.markers.map((marker, index) => {
+        {markers.map((marker, index) => {
           const scaleStyle = {
             transform: [
               {
@@ -281,12 +278,12 @@ function ExplorerScreen() {
           paddingRight: Platform.OS === "android" ? 20 : 0,
         }}
       >
-        {state.categories.map((category, index) => (
+        {categories.map((category, index) => (
           <TouchableOpacity
             onPress={() => {
               if (index === 0) {
-                setState((curState) => {
-                  curState.region = {
+                setRegion((curState) => {
+                  curState = {
                     latitude: -20.763050885254362,
                     longitude: -42.8818544663478,
                     latitudeDelta: 0.09864195044303443 / 1.6,
@@ -298,12 +295,12 @@ function ExplorerScreen() {
                   const regionTimeout = setTimeout(() => {
                     if (mapIndex !== index) {
                       mapIndex = index;
-                      const { coordinate } = state.markers[index];
+                      const { coordinate } = markers[index];
                       _map.current.animateToRegion(
                         {
                           ...coordinate,
-                          latitudeDelta: state.region.latitudeDelta,
-                          longitudeDelta: state.region.longitudeDelta,
+                          latitudeDelta: region.latitudeDelta,
+                          longitudeDelta: region.longitudeDelta,
                         },
                         1500
                       );
@@ -354,7 +351,7 @@ function ExplorerScreen() {
           { useNativeDriver: true }
         )}
       >
-        {state.markers.map((marker, index) => (
+        {markers.map((marker, index) => (
           <View style={styles.card} key={index}>
             <Image
               source={{ uri: marker.image }}
@@ -363,13 +360,13 @@ function ExplorerScreen() {
             />
             <View style={styles.textContent}>
               <Text numberOfLines={1} style={styles.cardtitle}>
-                Título: {"TODO"}
+                Título: {marker.title}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
-                Tipo: {"TODO"}
+                Rating: {marker.rating + 1}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
-                Usuário: {marker.title}
+                Usuário: {marker.user}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
                 Data: {new Date(marker.date).toLocaleDateString()}

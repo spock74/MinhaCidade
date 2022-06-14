@@ -1,23 +1,51 @@
 import * as SQLite from "expo-sqlite";
-import { Place } from "../models/Place";
-const database = SQLite.openDatabase("places.db");
 
+import PouchDB from "pouchdb-react-native";
+
+import { Place } from "../models/Place";
+import { WebSQLDatabase } from "expo-sqlite";
+
+
+const database = SQLite.openDatabase("places2.db");
+
+
+
+
+// export class Place {
+//   constructor(idName, title, rating, user, reviews, description, image, address, latitude, longitude, destination) {
+//     this.idName = idName,
+//     this.title = title,
+//     this.rating = rating,
+//     this.user = user,
+//     this.reviews = reviews,
+//     this.description = description;
+//     this.image = image;
+//     this.address = address;
+//     this.latitude = latitude;
+//     this.longitude = longitude;
+//     this.destination = destination;
+//     this.timestamp = new Date().getTime().toString();
+//     this.date = new Date().toISOString();
+//   }
+// }
 export function initSqlite() {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        `CREATE TABLE IF NOT EXISTS PLACES (
+        `CREATE TABLE IF NOT EXISTS PLACES2 (
                 id INTEGER PRIMARY KEY NOT NULL, 
-                id_name TEXT NOT NULL,
-                user TEXT NOT NULL,
-                description TEXT NOT NULL, 
-                imageUri TEXT NOT NULL,
-                address TEXT NOT NULL, 
+                address TEXT NOT NULL,
+                date TEXT NOT NULL,
+                description TEXT NOT NULL,
+                destination TEXT NOT NULL, 
+                image TEXT NOT NULL,
                 latitude REAL NOT NULL, 
                 longitude REAL NOT NULL, 
-                destination TEXT NOT NULL,
+                rating TEXT NOT NULL, 
+                reviews TEXT NOT NULL,
                 timestamp TEXT NOT NULL,
-                date TEXT NOT NULL)`,
+                title TEXT NOT NULL,
+                user TEXT NOT NULL)`,
         [],
         () => {
           resolve();
@@ -34,29 +62,34 @@ export function insertPlaceSql(place) {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        `INSERT INTO PLACES (
-          id_name, 
-          user, 
-          description, 
-          imageUri, 
-          address, 
-          latitude, 
-          longitude, 
-          destination, 
+        `INSERT INTO PLACES2 (
+          address,
+          date,
+          description,
+          destination,
+          image,
+          latitude,
+          longitude,
+          rating,
+          reviews,
           timestamp,
-          date) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          title,
+          user
+          ) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
-          place.idName ? place.idName : "__",
-          place.user,
-          place.description,
-          place.imageUri,
-          place.address,
-          place.latitude,
-          place.longitude,
-          place.destination || "__",
-          place.timestamp,
-          place.date,
+          address,
+          date,
+          description,
+          destination,
+          image,
+          latitude,
+          longitude,
+          rating,
+          reviews,
+          timestamp,
+          title,
+          user
         ],
         (_, result) => {
           console.log("result from insertPlaceSql: ", result);
@@ -70,38 +103,46 @@ export function insertPlaceSql(place) {
   });
 }
 
-// this.idName
-// this.user = user;
-// this.description = description;
-// this.imageUri = imageUri;
-// this.address = address;
-// this.latitude = latitude;
-// this.longitude = longitude;
-// this.destination = destination;
-// this.timestamp = new Date().getTime().toString();
-// this.date = new Date().toISOString();
-
+// export class Place {
+//   constructor(idName, title, rating, user, reviews, description, image, address, latitude, longitude, destination) {
+//     this.idName = idName,
+//     this.title = title,
+//     this.rating = rating,
+//     this.user = user,
+//     this.reviews = reviews,
+//     this.description = description;
+//     this.image = image;
+//     this.address = address;
+//     this.latitude = latitude;
+//     this.longitude = longitude;
+//     this.destination = destination;
+//     this.timestamp = new Date().getTime().toString();
+//     this.date = new Date().toISOString();
+//   }
+// }
 export function getAllPlacesSql() {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        `SELECT * FROM PLACES`,
+        `SELECT * FROM PLACES2`,
         [],
         (_, result) => {
           const places = [];
           for (const item of result.rows._array) {
             places.push(
               new Place(
-                item.id_name,
-                item.user,
-                item.description,
-                item.imageUri,
                 item.address,
+                item.date,
+                item.description,
+                item.destination,
+                item.image,
                 item.latitude,
                 item.longitude,
-                item.destination,
+                item.rating,
+                item.reviews,
                 item.timestamp,
-                item.date
+                item.title,
+                item.user
               )
             );
           }
@@ -121,23 +162,25 @@ export function getPlacesSqlByUserEmail(email) {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        `SELECT * FROM PLACES WHERE user = ?`,
+        `SELECT * FROM PLACES2 WHERE user = ?`,
         [email],
         (_, result) => {
           const places = [];
           for (const item of result.rows._array) {
             places.push(
               new Place(
-                item.id_name,
-                item.user,
-                item.description,
-                item.imageUri,
                 item.address,
+                item.date,
+                item.description,
+                item.destination,
+                item.image,
                 item.latitude,
                 item.longitude,
-                item.destination,
+                item.rating,
+                item.reviews,
                 item.timestamp,
-                item.date
+                item.title,
+                item.user
               )
             );
           }
@@ -157,23 +200,25 @@ export function getPlacesSqlByIdName(idName) {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        `SELECT * FROM PLACES WHERE id_name = ?`,
+        `SELECT * FROM PLACES2 WHERE id_name = ?`,
         [idName],
         (_, result) => {
           const places = [];
           for (const item of result.rows._array) {
             places.push(
               new Place(
-                item.id_name,
-                item.user,
-                item.description,
-                item.imageUri,
                 item.address,
+                item.date,
+                item.description,
+                item.destination,
+                item.image,
                 item.latitude,
                 item.longitude,
-                item.destination,
+                item.rating,
+                item.reviews,
                 item.timestamp,
-                item.date
+                item.title,
+                item.user
               )
             );
           }
@@ -193,7 +238,7 @@ export function deleteTablePlaceSql() {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        `DROP TABLE IF EXISTS PLACES`,
+        `DROP TABLE IF EXISTS PLACES2`,
         [],
         (_, result) => {
           console.log("result from deleteTablePlaceSql: ", result);
@@ -205,6 +250,10 @@ export function deleteTablePlaceSql() {
       );
     });
   });
+}
+
+export function deleteDatabasePlaceSql() {
+  WebSQLDatabase.deleteAsync("places2").then(() => { console.log("database deleted"); });
 }
 
 export class Location {
@@ -224,7 +273,7 @@ export function getAllLocations() {
   return new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        `SELECT latitude , longitude FROM PLACES`,
+        `SELECT latitude , longitude FROM PLACES2`,
         [],
         (_, result) => {
           const locations = [];
@@ -242,3 +291,5 @@ export function getAllLocations() {
     });
   });
 }
+
+export const db2 = new PouchDB("place_database01");
