@@ -14,7 +14,7 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView,  {Callout, PROVIDER_GOOGLE } from "react-native-maps";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Fontisto from "react-native-vector-icons/Fontisto";
@@ -30,6 +30,7 @@ import { mapDarkStyle, mapStandardStyle } from "../models/mapData";
 import StarRating from "../components/StarRating";
 
 import { useTheme } from "@react-navigation/native";
+import { Colors } from "../constants/Colors";
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
@@ -215,6 +216,11 @@ function ExplorerScreen() {
                   resizeMode="cover"
                 />
               </Animated.View>
+            <Callout>
+              <View  style={styles.plainView}>
+                <Text>Endereço: {marker.address}</Text>
+              </View>
+            </Callout>
             </MapView.Marker>
           );
         })}
@@ -323,7 +329,7 @@ function ExplorerScreen() {
           { useNativeDriver: true }
         )}
       >
-        {markers.map((marker, index) => (
+        { markers.map((marker, index) => (
           <View style={styles.card} key={index}>
             <Image
               source={{ uri: marker.image }}
@@ -335,7 +341,7 @@ function ExplorerScreen() {
                 Título: {marker.title}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
-                Data: {new Date(marker.date).toLocaleDateString()}
+                Data: {new Date(marker.date).toLocaleDateString()}{" "}Horário:{" "}{new Date(marker.date).toLocaleTimeString()}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
                 Usuário: {marker.user}
@@ -360,6 +366,11 @@ export default ExplorerScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  plainView: {
+    width: 250,
+    height: 100,
+    backgroundColor: Colors.pri
   },
   searchBox: {
     position: "absolute",

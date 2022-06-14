@@ -14,8 +14,12 @@ function PlacesList({ places }) {
       </View>
     );
   }
-
-  Alert.alert("Numero de itens: ", places.length);
+  
+  useEffect(() => {
+    return () => {
+      Alert.alert("Numero de itens: ", places.length);
+    };
+  }, [input]);
 
   return (
     <FlatList

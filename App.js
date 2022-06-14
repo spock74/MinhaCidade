@@ -1,6 +1,8 @@
 //import "react-native-gesture-handler";
 import { NativeBaseProvider, Box, extendTheme } from "native-base";
+import { Button } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+// import ionicon from
 // import { initializeApp } from "firebase/app";
 // import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
 // import { getDatabase, ref, onValue, set } from 'firebase/database';
@@ -35,8 +37,6 @@ import ExplorerScreen from "./screens/ExplorerScreen";
 
 import { Alert } from "react-native";
 import FullMap from "./components/places/FullMap";
-
-
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -144,18 +144,21 @@ function DrawerNavigator() {
         name="Explorer"
         component={ExplorerScreen}
         options={{
-          title: "Mapa E",
-          drawerItemStyle: {
-            color: "white",
-            fonntWeight: "bold",
-            fontSize: 20,
-          },
+          title: "Mapa",
           drawerIcon: ({ color, size }) => (
             <FontAwesome
               name="map-marker"
               color={"red"}
               size={size}
               onPress={() => navigation.navigate("Explorer")}
+            />
+          ),
+          headerRight: ({ color, size }) => (
+            <Button
+              style={styles.addButton}
+              onPress={() => navigation.navigate("AddPlace")}
+              title="Adicionar"
+              color={color}
             />
           ),
         }}
@@ -246,19 +249,33 @@ const newColorTheme = {
 const theme = extendTheme({ colors: newColorTheme });
 
 export default function App() {
-
   const [dbInitialized, setDbInitialized] = useState(false);
   useEffect(() => {
     initSqlite()
-    .then(() => {
-      setDbInitialized(true);
-      console.log("db initialized in App()");
-    })
-    .catch((err) => {
-      console.log("Error initializing database: ", err);
-      Alert.alert("Erro", "Erro ao inicializar banco de dados", err);
-    });
+      .then(() => {
+        setDbInitialized(true);
+        console.log("db initialized in App()");
+      })
+      .catch((err) => {
+        console.log("Error initializing database: ", err);
+        Alert.alert("Erro", "Erro ao inicializar banco de dados", err);
+      });
   }, []);
+
+  // Initialize Firebase
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyDowBloT_HEX4Ul6-7GTKXcLwRNg23NZo8",
+  //   authDomain: "project-id.firebaseapp.com",
+  //   databaseURL: "https://st11-3f424.firebaseio.com",
+  //   projectId: "st11-3f424",
+  //   storageBucket: "st11-3f424.appspot.com",
+  //   messagingSenderId: "",
+  //   appId: "",
+  //   measurementId: "",
+  // };
+  // useEffect(()=>{
+  //   initializeApp(firebaseConfig);
+  // }, []);
 
   return (
     <NativeBaseProvider theme={theme}>
@@ -272,4 +289,10 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  addButton: {
+    marginRight: 12,
+    backgroundColor: Colors.primary800,
+    borderRadius: 10,
+  },
+});
