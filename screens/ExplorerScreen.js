@@ -84,21 +84,6 @@ function ExplorerScreen() {
     longitudeDelta: 0.090142817690068 / 1.6,
   });
 
-  // ---- class place ===='
-  //     this.idName = idName,
-  //     this.title = title,
-  //     this.rating = rating,
-  //     this.user = user,
-  //     this.reviews = reviews,
-  //     this.description = description;
-  //     this.image = image;
-  //     this.address = address;
-  //     this.latitude = latitude;
-  //     this.longitude = longitude;
-  //     this.destination = destination;
-  //     this.timestamp = new Date().getTime().toString();
-  //     this.date = new Date().toISOString();
-  // const [markers, setMakers] = useState(markers);
   const [markers, setMarkers] = useState([
     {
       latitude: -20.745646384023,
@@ -122,12 +107,8 @@ function ExplorerScreen() {
     forceUpdate();
   }, [forceUpdate]);
 
-  function a(w) {
-    setMarkers(w);
-  }
-
   useEffect(() => {
-    // if(isFocused){
+    if(isFocused) {
       db2
       .allDocs({ include_docs: true })
       .then((result) => {
@@ -137,8 +118,8 @@ function ExplorerScreen() {
       .catch((err) => {
         console.log("err db2 allDocs: ", err);
       });
-    // }
-  }, []);
+    }
+  }, [isFocused]);
 
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
