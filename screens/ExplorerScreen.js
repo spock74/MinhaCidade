@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import useForceUpdate from "use-force-update";
 import { useIsFocused } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -117,43 +118,50 @@ function ExplorerScreen() {
     },
   ]);
 
-  function constructdata() {}
+  const forceUpdate = useForceUpdate();
+  const c = useCallback(() => {
+    forceUpdate();
+  }, [forceUpdate]);
+
+  function a(w) {
+    setMarkers(w);
+  }
 
   useEffect(() => {
-    // if (isFocused) {
-    db2
-      .allDocs({ include_docs: true })
-      .then((result) => {
-        // setLoadedPlaces(result.rows.map((row) => row.doc));
-        let markers_ = [];
-        result.rows.map((place, kk) => {
-          console.log("result db2 allDocs kk place: " + kk, place);
-          let m_ = {};
-          m_.title = place.doc.title;
-          m_.description = place.doc.description;
-          m_.image = place.doc.image;
-          m_.rating = Number(place.doc.rating);
-          m_.reviews = Number(place.doc.reviews);
-          m_.address = place.doc.address;
-          // //: result.place.//:;
-          m_.timestamp = place.doc.timestamp;
-          m_.user = place.doc.user;
-          m_.destination = place.doc.destination;
-          m_.date = place.doc.date;
-          m_.coordinate = {
-            latitude: Number(place.doc.latitude),
-            longitude: Number(place.doc.longitude),
-          };
-          markers_.push(m_);
+    if (isFocused) {
+      db2
+        .allDocs({ include_docs: true })
+        .then((result) => {
+          // setLoadedPlaces(result.rows.map((row) => row.doc));
+          let markers_ = [];
+          result.rows.map((place, kk) => {
+            console.log("result db2 allDocs kk place: " + kk, place);
+            let m_ = {};
+            m_.title = place.doc.description;
+            m_.description = place.doc.description;
+            m_.image = place.doc.image;
+            m_.rating = Number(place.doc.rating);
+            m_.reviews = Number(place.doc.reviews);
+            m_.address = place.doc.address;
+            // //: result.place.//:;
+            m_.timestamp = place.doc.timestamp;
+            m_.user = place.doc.user;
+            m_.destination = place.doc.destination;
+            m_.date = place.doc.date;
+            m_.coordinate = {
+              latitude: Number(place.doc.latitude),
+              longitude: Number(place.doc.longitude),
+            };
+            markers_.push(m_);
+            setMarkers(markers_);
+          });
+          console.log("result db2 allDocs kk place: ", markers_);
+        })
+        .catch((err) => {
+          console.log("err db2 allDocs: ", err);
         });
-
-        setMarkers(markers_);
-      })
-      .catch((err) => {
-        console.log("err db2 allDocs: ", err);
-      });
-    // }
-  }, []);
+    }
+  }, [isFocused]);
 
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
@@ -281,6 +289,10 @@ function ExplorerScreen() {
         {categories.map((category, index) => (
           <TouchableOpacity
             onPress={() => {
+              if (index === 1) {
+                c();
+              }
+
               if (index === 0) {
                 setRegion((curState) => {
                   curState = {
@@ -363,13 +375,13 @@ function ExplorerScreen() {
                 Título: {marker.title}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
-                Rating: {marker.rating + 1}
+                Data: {new Date(marker.date).toLocaleDateString()}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
                 Usuário: {marker.user}
               </Text>
               <Text numberOfLines={1} style={styles.cardtitle}>
-                Data: {new Date(marker.date).toLocaleDateString()}
+                Endereco: {marker.address}
               </Text>
               <StarRating ratings={marker.rating} reviews={marker.reviews} />
               {/* <Text numberOfLines={1} style={styles.cardDescription}>

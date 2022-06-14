@@ -80,9 +80,9 @@ function PlaceForm({ onCreatePlace }) {
   function savePlaceHandler() {
     const placeData = new Place(
       "Titulo",
-      "Rating",
+      4,
       "user",
-      "Reviews",
+      13,
       enteredDescription,
       takenImage.uri,
       pickedLocation.address,
@@ -92,12 +92,6 @@ function PlaceForm({ onCreatePlace }) {
       new Date().getTime().toString(),
       new Date().toISOString()
     );
-
-    // console.log(
-    //   " NA FUNCAO savePlaceHandler ",
-    //   "****************************************"
-    // );
-    // onCreatePlace(placeData);
 
     onCreatePlaceSavePlaceInBackEnd(placeData);
   }

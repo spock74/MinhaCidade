@@ -293,3 +293,12 @@ export function getAllLocations() {
 }
 
 export const db2 = new PouchDB("place_database01");
+
+export function deletePouchDB() {
+  db2.destroy("place_database01").then(function (response) {
+    console.log(response);
+  }).catch(function (err) {
+    console.log(err);
+  });
+}
+

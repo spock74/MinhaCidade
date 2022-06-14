@@ -9407,6 +9407,11 @@ url-parse@^1.5.9:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+use-force-update@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/use-force-update/-/use-force-update-1.0.8.tgz#14483faa4571673f070080f8233057b43b266ace"
+  integrity sha512-ua22fB++yaCvnf+Unht3L/2Lq3O7QstCtyh1IV8ydkJcyT6yVwMNgkKKhOsj5HRJCJj2oQbjzd6JJVnx7S+3uA==
+
 "use-subscription@>=1.0.0 <1.6.0":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/use-subscription/-/use-subscription-1.5.1.tgz#73501107f02fad84c6dd57965beb0b75c68c42d1"

@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAllLocations } from "../util/database";
 
 import PouchDB from "pouchdb-react-native";
-import { db2 } from "../util/database";
+import { db2, deletePouchDB } from "../util/database";
 
 function Configurations() {
   const deletePlacesHandler = () => {
@@ -55,6 +55,12 @@ function Configurations() {
     });
   }
 
+
+function deleteAndRecreatePouchDBHandler() {
+  deletePouchDB();
+}
+
+
   return (
     <View style={styles.constainer}>
       <Button
@@ -74,13 +80,18 @@ function Configurations() {
       />
       <Button
         style={styles.button}
+        title="getDocFromPouch"
+        onPress={getDocFromPouch}
+      />
+      <Button
+        style={styles.button}
         title="saveDocToPouc"
         onPress={saveDocToPouch}
       />
       <Button
         style={styles.button}
-        title="getDocFromPouch"
-        onPress={getDocFromPouch}
+        title="Recriar Pouch"
+        onPress={deleteAndRecreatePouchDBHandler}
       />
     </View>
   );
