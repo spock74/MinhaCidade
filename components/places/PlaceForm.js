@@ -34,14 +34,14 @@ function PlaceForm({ onCreatePlace }) {
   function onCreatePlaceSavePlaceInBackEnd(place) {
     AsyncStorage.getItem("st_11_email").then((value) => {
       place.user = value;
-      console.log("----- place>>> -----", place);
+      // console.log("----- place>>> -----", place);
       axios
         .post(
           "https://st11-3f424-default-rtdb.firebaseio.com/lugar.json",
           place
         )
         .then((response) => {
-          console.log(response.data.name);
+          // console.log(response.data.name);
           place.idName = response.data.name;
           onCreatePlace(place);
         });

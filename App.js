@@ -233,10 +233,6 @@ function Root() {
     getToken();
   }, []);
 
-  // if (isLoading) {
-  //   return <AppLoading />;
-  // }
-
   return <Navigation />;
 }
 
@@ -251,50 +247,18 @@ const theme = extendTheme({ colors: newColorTheme });
 
 export default function App() {
 
-  
-  
-  
   const [dbInitialized, setDbInitialized] = useState(false);
   useEffect(() => {
     initSqlite()
     .then(() => {
       setDbInitialized(true);
-      console.log("db initialized");
+      console.log("db initialized in App()");
     })
     .catch((err) => {
       console.log("Error initializing database: ", err);
       Alert.alert("Erro", "Erro ao inicializar banco de dados", err);
     });
   }, []);
-  
-  
-  
-  // function storeHighScore(userId, score) {
-  //   const db = getDatabase();
-  //   const reference = ref(db, 'users/' + userId);
-  //   set(reference, {
-  //     highscore: score,
-  //   });
-  // }
-  // const [fireDbresult, setFireDbresult] = useState(false);
-  // useEffect(() => {
-  //   initializeApp();
-    
-  //  function setupHighscoreListener(userId) {const db = getDatabase();
-  //     const reference = ref(db, 'users/' + userId);
-  //     onValue(reference, (snapshot) => {
-  //       const highscore = snapshot.val().highscore;
-  //       setFireDbresult(highscore);
-  //       console.log("New high score: " + fireDbresult);
-  //     });
-  //   }
-  //   setupHighscoreListener(123234);
-
-  // }, []);
-
-  // if (!dbInitialized) {
-  //   return <AppLoading />;
-  // }
 
   return (
     <NativeBaseProvider theme={theme}>

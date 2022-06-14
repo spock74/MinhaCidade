@@ -17,7 +17,7 @@ function PlacesList({ places }) {
   }
 
 places.map(place => {
-  console.log(place.idName);
+  // console.log(place.idName);
   ({address, date, description, destination, image, latitude, longitude, rating, reviews, timestamp, title, user,} = places)  
 });
 

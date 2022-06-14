@@ -14,18 +14,21 @@ function AllPlaces({ route }) {
   // handle load places from async storage as currPlaces
   // set it in a Context?
 
-  const getAllKeys = async () => {
-    let keys = [];
-    try {
-      keys = await AsyncStorage.getAllKeys();
-    } catch (e) {
-      // read key error
-    }
+  // const getAllKeys = async () => {
+  //   let keys = [];
+  //   try {
+  //     keys = await AsyncStorage.getAllKeys();
+  //   } catch (e) {
+  //     // read key error
+  //   }
 
-    console.log(keys);
-    // example console.log result:
-    // ['@MyApp_user', '@MyApp_key']
-  };
+  //   console.log(keys);
+  //   // example console.log result:
+  //   // ['@MyApp_user', '@MyApp_key']
+  // };
+
+
+
 
   useEffect(() => {
       db2
@@ -33,6 +36,7 @@ function AllPlaces({ route }) {
         .then((result) => {
           // console.log("result db2 allDocs: ", result);
           setLoadedPlaces(result.rows.map((row) => row.doc));
+          console.log(">>>>>> do explorer 1 --- ", loadedPlaces);
         })
         .catch((err) => {console.log("err db2 allDocs: ", err);});
     }, []);

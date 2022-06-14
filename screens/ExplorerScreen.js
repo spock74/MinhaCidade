@@ -38,6 +38,7 @@ const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 function ExplorerScreen() {
   const isFocused = useIsFocused();
+  const [] = useState([]);
   const theme = useTheme();
 
   const categories = [
@@ -100,10 +101,8 @@ function ExplorerScreen() {
   // const [markers, setMakers] = useState(markers);
   const [markers, setMarkers] = useState([
     {
-      coordinate: {
-        latitude: -20.745646384023,
-        longitude: -42.88733714762861,
-      },
+      latitude: -20.745646384023,
+      longitude: -42.88733714762861,
       title: "Vazamento na rua",
       description: "Marco Zero",
       image: null,
@@ -128,40 +127,18 @@ function ExplorerScreen() {
   }
 
   useEffect(() => {
-    if (isFocused) {
+    // if(isFocused){
       db2
-        .allDocs({ include_docs: true })
-        .then((result) => {
-          // setLoadedPlaces(result.rows.map((row) => row.doc));
-          let markers_ = [];
-          result.rows.map((place, kk) => {
-            console.log("result db2 allDocs kk place: " + kk, place);
-            let m_ = {};
-            m_.title = place.doc.description;
-            m_.description = place.doc.description;
-            m_.image = place.doc.image;
-            m_.rating = Number(place.doc.rating);
-            m_.reviews = Number(place.doc.reviews);
-            m_.address = place.doc.address;
-            // //: result.place.//:;
-            m_.timestamp = place.doc.timestamp;
-            m_.user = place.doc.user;
-            m_.destination = place.doc.destination;
-            m_.date = place.doc.date;
-            m_.coordinate = {
-              latitude: Number(place.doc.latitude),
-              longitude: Number(place.doc.longitude),
-            };
-            markers_.push(m_);
-            setMarkers(markers_);
-          });
-          console.log("result db2 allDocs kk place: ", markers_);
-        })
-        .catch((err) => {
-          console.log("err db2 allDocs: ", err);
-        });
-    }
-  }, [isFocused]);
+      .allDocs({ include_docs: true })
+      .then((result) => {
+        setMarkers(result.rows.map((row) => row.doc));
+        // console.log(">>>>>> aaaaaaa --- ", markers);
+      })
+      .catch((err) => {
+        console.log("err db2 allDocs: ", err);
+      });
+    // }
+  }, []);
 
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
@@ -182,10 +159,11 @@ function ExplorerScreen() {
       const regionTimeout = setTimeout(() => {
         if (mapIndex !== index) {
           mapIndex = index;
-          const { coordinate } = markers[index];
+          const { latitude, longitude } = markers[index];
           _map.current.animateToRegion(
             {
-              ...coordinate,
+              latitude,
+              longitude,
               latitudeDelta: region.latitudeDelta * multiplierfactor,
               longitudeDelta: region.longitudeDelta * multiplierfactor,
             },
@@ -246,7 +224,7 @@ function ExplorerScreen() {
           return (
             <MapView.Marker
               key={index}
-              coordinate={marker.coordinate}
+              coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
               onPress={(e) => onMarkerPress(e)}
             >
               <Animated.View style={[styles.markerWrap]}>
@@ -307,10 +285,11 @@ function ExplorerScreen() {
                   const regionTimeout = setTimeout(() => {
                     if (mapIndex !== index) {
                       mapIndex = index;
-                      const { coordinate } = markers[index];
+                      const { latitude, longitude } = markers[index];
                       _map.current.animateToRegion(
                         {
-                          ...coordinate,
+                          latitude,
+                          longitude,
                           latitudeDelta: region.latitudeDelta,
                           longitudeDelta: region.longitudeDelta,
                         },
