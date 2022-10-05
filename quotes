@@ -1,0 +1,43 @@
+quotes = [
+  {
+    quote: "Quantifique em tempo real o resultado de suas campanhas",
+    author: "SmartPharma",
+  },
+  {
+    quote: "Gerar relatórios customizados sobre entregas, retornos, .",
+    author: "SmaetPharma Team",
+  },
+  {
+    quote:
+      "Para o bem ou para o mal, suas palavras são a sua propaganda. Todas as vezes que abre a boca, você revela o que existe em sua mente.l.",
+    author: "Nelson Mandela",
+  },
+  {
+    quote: "BI com georreferenciamento.",
+    author: "SmaetPharma",
+  },
+  {
+    quote:
+      "Carteira de clientes atualizada em tempo real e comparilhavel entre os funcionários.",
+    author: "SmaetPharma",
+  },
+  {
+    quote:
+      "Classificação de clientes de maior rentabilidade com inteligência artificial.",
+    author: "SmaetPharma",
+  },
+  {
+    quote:
+      "Altruísmo não é a propaganda do bem realizado, mas sim a realização espontânea da alma..",
+    author: "Bhuda",
+  },
+  {
+    quote: "Pensei que a vida era linda como uma propaganda de cigarros...",
+    author: "Chico Reias",
+  },
+  {
+    quote:
+      "Amizade verdadeira nao precisa de rotulos ou muito menos propaganda.",
+    author: "Amado Batista",
+  },
+];
